@@ -41,8 +41,9 @@ class InputParser:
         """
         self._tutorials = {}
         """
+        !!!! TO GET ACCESS FOR GROUP'S LAB IN DICTIONARY:
         dict of all labs
-        key = course name
+        key = course name + GROUP_NAME (labs[course_name + group.get_name()])
         value = Lab object inherited from CourseActivity class (/src/class_hierarchy/Lab.py)
         """
         self._labs = {}
@@ -122,7 +123,7 @@ class InputParser:
 
             self._teachers[teacher_name] = Teacher(teacher_name)
 
-            self._labs[course_name] = Lab(
+            self._labs[course_name + group.get_name()] = Lab(
                 course_name,
                 self._lectures[course_name].get_type(),
                 course_format,
@@ -150,3 +151,7 @@ class InputParser:
             for index, day in enumerate(row):
                 if day == "yes":
                     teacher.get_preferences().append(weekdays[index - 1])
+
+
+pd = InputParser()
+print(pd.get_labs()["Theoretical Computer Science / Теоретические основы компьютерных наук" + "B22-DSAI-01"].get_teacher())
