@@ -1,6 +1,5 @@
-from src.class_hierarchy.Lab import *
+from src.class_hierarchy.CourseActivity import *
 from src.class_hierarchy.Group import *
-from src.class_hierarchy.exception_classes.JointLabsFormat import *
 from src.class_hierarchy.Room import *
 
 import pandas as pd
@@ -40,13 +39,7 @@ class InputParser:
         value = CourseActivity object (/src/class_hierarchy/CourseActivity.py)
         """
         self._tutorials = {}
-        """
-        !!!! TO GET ACCESS FOR GROUP'S LAB IN DICTIONARY:
-        dict of all labs
-        key = course name + GROUP_NAME (labs[course_name + group.get_name()])
-        value = Lab object inherited from CourseActivity class (/src/class_hierarchy/Lab.py)
-        """
-        self._labs = {}
+
         """
         dict of all rooms in IU
         key = room number
@@ -59,6 +52,25 @@ class InputParser:
         """
         self._sport_classes_days = []
 
+        """
+        NEW CHANGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        
+        dict to store info about course and its groups to teach
+        key = string name of the course
+        value = list of names of groups that are going to be taught during this course
+        """
+        self._course_groups_dict = {}
+
+        """
+        NEW CHANGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        
+        key = class of Teacher = TA
+            value = nested dict with following:
+                key = course name
+                value = capacity
+        """
+        self._ta_courses_capacity = {}
+
         # execute parsing algorithm to read and initialize data
         self._parse()
 
@@ -67,9 +79,6 @@ class InputParser:
 
     def get_tutorials(self):
         return self._tutorials
-
-    def get_labs(self):
-        return self._labs
 
     def get_groups(self):
         return self._groups
@@ -83,8 +92,14 @@ class InputParser:
     def get_sport_days(self):
         return self._sport_classes_days
 
+    def get_ta_courses_capacity(self) -> dict:
+        return self._ta_courses_capacity
+
+    def get_course_groups_dict(self) -> dict:
+        return self._course_groups_dict
+
     def _parse(self):
-        classes = [self._lectures, self._tutorials, self._labs]
+        classes = [self._lectures, self._tutorials]
         for row in self._input_file['Courses'].values:
             course_name = row[0].strip()
             course_formats = row[1].split("/")
@@ -110,30 +125,23 @@ class InputParser:
             group_name, people_num = row[0].strip(), int(row[1])
             self._groups[group_name] = Group(group_name, people_num)
 
-        for row in self._input_file['Group-TA'].values:
-            group = self._groups[row[0].strip()]
-            course_name, teacher_name, course_format = row[1].strip(), row[2].strip(), row[3].strip()
-            is_joint = row[4]
-            if is_joint == "No":
-                is_joint = False
-            elif is_joint == "Yes":
-                is_joint = True
-            else:
-                raise JointLabsFormatException(is_joint)
+        for row in self._input_file['Course-Groups'].values:
+            course_name = row[0].strip()
+            groups = row[1].split(", ")
+            self._course_groups_dict[course_name] = groups
 
-            self._teachers[teacher_name] = Teacher(teacher_name)
+        for row in self._input_file['TA-Course-Groups'].values:
 
-            self._labs[course_name + group.get_name()] = Lab(
-                course_name,
-                self._lectures[course_name].get_type(),
-                course_format,
-                self._lectures[course_name].get_study_year(),
-                self._teachers[teacher_name],
-                "Lab",
-                is_joint
-            )
+            teacher_name = row[0].strip()
+            if teacher_name not in self._teachers:
+                self._teachers[teacher_name] = Teacher(teacher_name)
 
-            group.get_courses().append(course_name)
+            if self._teachers[teacher_name] not in self._ta_courses_capacity:
+                self._ta_courses_capacity[self._teachers[teacher_name]] = {}
+
+            course_name = row[1].strip()
+            capacity = row[2]
+            self._ta_courses_capacity[self._teachers[teacher_name]][course_name] = capacity
 
         for row in self._input_file['Rooms Info'].values:
             room_number, capacity = row[0], row[1]
@@ -153,5 +161,8 @@ class InputParser:
                     teacher.get_preferences().append(weekdays[index - 1])
 
 
-pd = InputParser()
-print(pd.get_labs()["Theoretical Computer Science / Теоретические основы компьютерных наук" + "B22-DSAI-01"].get_teacher())
+# simple test
+
+ip = InputParser()
+print(ip.get_course_groups_dict()["Mathematical Analysis II / Математический анализ II"])
+print(ip.get_ta_courses_capacity()[ip.get_teachers()["Zlata Shchedrikova"]].keys())
