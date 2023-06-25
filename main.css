@@ -1,0 +1,207 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Karla:700,800");
+
+.frame {
+    top: -0.05%;
+    left: -0.05%;
+    background-color: #fff;
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;  
+    position: absolute;
+}
+
+.page {
+    display:flex;
+    flex-direction:column;
+}
+
+.open-source-service {
+    left: min(1200px, 50% + 100px);
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    margin-top: min(30px, 3%);
+    width: min(400px, 30%);
+}
+
+.font-karla {
+    color: rgba(37,77,37,1);
+    font-family: "Karla";
+    font-size: clamp(6px, 1.4vw, 32px);
+    font-weight: 700;
+    font-style: normal;
+}
+
+.txt {
+    width: 100%;
+    color: rgba(37,77,37,1);
+    font-family: "Karla";
+    font-size: clamp(6px, 1.8vw, 32px);
+    font-weight: 700;
+    font-style: normal;
+}
+
+.overlap-group {
+    height: 144%;
+    margin-top: -10.7%;
+    position: absolute;
+    width: 116%;
+    overflow: hidden;
+}
+
+.heading {
+    display: flex;
+    flex-direction:column;
+}
+
+.ellipse {
+    background: linear-gradient(180deg, rgba(70, 143, 70, 0.6), rgba(255, 255, 255, 0.6));
+    border-radius: 25vw;
+    height: 50vw;
+    width: 50vw;
+    position: absolute;
+}
+
+.ellipse1 {
+    left: min(400px, 20%);
+    top: -8%;
+}
+
+.ellipse2 {
+    left: 65%;
+    top: 50%;
+}
+
+.line-1 {
+    object-fit: cover;
+    margin-top: min(20px, 5%);
+    border-color: rgb(81, 81, 81);
+    border: 1px solid rgb(81,81,81);
+    
+    box-shadow: 1px 3px 5px 1px rgba(0, 0, 0, 0.2);
+    left: min(1200px, 50% + 100px);
+    line-height: normal;
+    position: relative;
+    width: min(1000px, 55% + 50px);
+}
+
+.rectangle {
+    border: 1px solid;
+    border-color: rgba(37,77,37,1);
+    border-radius: 12px;
+    height: 10%;
+    position: absolute;
+    flex-direction:column;
+    font-size: clamp(6px, 1.8vw, 32px) !important;
+    padding: 1.5% 1% 1% 4%;
+}
+
+.rectangle-3 {
+    top: min(500px, 45%);
+    width: 35%;
+    left: min(900px, 45% + 50px);
+}
+
+.rectangle-4 {
+    top: min(700px, 75%);
+    width: 35%;
+    left: min(1000px, 45% + 100px);
+}
+
+.upload {
+    left: 749px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 580px;
+    white-space: nowrap;
+    width: 183px;
+}
+
+.learn {
+    left: 877px;
+    letter-spacing: 0px;
+    line-height: normal;
+    position: absolute;
+    top: 715px;
+    white-space: nowrap;
+    width: 183px;
+}
+
+.btn {
+    cursor: pointer;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 12px;
+    line-height: normal;
+    position: absolute;
+    white-space: nowrap;
+    width: min(300px, 35%);
+    box-shadow: 1px 3px 5px 1px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.up-btn {
+    top: min(370px, 32%);
+    left: min(700px, 40% + 70px);
+}
+
+#begin-btn {
+    background-color: #468f46;
+}
+
+.tut-btn {
+    top: min(430px, 30%);
+    left: min(700px, 42% + 70px);
+}
+
+.tut-btn-font {
+    font-family: "Karla";
+    color: #468f46;
+    font-size: clamp(6px, 2.0vw, 40px) ;
+    font-weight: 800;
+}
+
+.up-btn-font {
+    font-family: "Karla";
+    color: #fff;
+    font-size: clamp(6px, 2.0vw, 40px);
+    font-weight: 800;
+}
+
+.buttons {
+    display: flex;
+    flex-direction:column;
+    z-index: 9;
+}
+
+.heading {
+    display: flex;
+    flex-direction:column;
+    align-items: right;
+    justify-content: right;
+    z-index: 9;
+}
+
+.title {
+    color: #468f46;
+    font-family: "Lato";
+    font-size: clamp(3px, 4.0vw, 54px);
+    font-weight: 800;
+    letter-spacing: 0;
+    left: min(1200px, 50% + 100px);
+    line-height: normal;
+    position: relative;
+    width: min(1000px, 55% + 50px);
+}
+
+.img-head {
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    width: min(500px, 40%);
+    box-shadow: 1px 3px 5px 1px rgba(0, 0, 0, 0.3);
+}
