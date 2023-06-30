@@ -162,7 +162,7 @@ class InputParser:
 
 
 # simple test
-
-ip = InputParser()
-print(ip.get_course_groups_dict()["Mathematical Analysis II / Математический анализ II"])
-print(ip.get_ta_courses_capacity()[ip.get_teachers()["Zlata Shchedrikova"]].keys())
+#
+# ip = InputParser()
+# print(ip.get_course_groups_dict()["Mathematical Analysis II / Математический анализ II"])
+# print(ip.get_ta_courses_capacity()[ip.get_teachers()["Zlata Shchedrikova"]].keys())

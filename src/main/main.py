@@ -117,3 +117,5 @@ def get_schedule():
                             print("Any ERROR")
         printDict(week)
     return week
+
+get_schedule()
