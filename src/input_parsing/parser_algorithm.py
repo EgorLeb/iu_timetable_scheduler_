@@ -1,6 +1,7 @@
 from src.class_hierarchy.CourseActivity import *
 from src.class_hierarchy.Group import *
 from src.class_hierarchy.Room import *
+from src.class_hierarchy.exception_classes.NoTeacherPreference import *
 
 import pandas as pd
 from pathlib import Path
@@ -155,11 +156,14 @@ class InputParser:
                     self._sport_classes_days.append(weekdays[index - 1])
 
         for row in self._input_file['Teacher Preferences'].values:
+            teacher_name = row[0].strip()
+            if teacher_name not in self._teachers.keys():
+                raise NoTeacherPreferenceException(teacher_name)
+
             teacher = self._teachers[row[0].strip()]
             for index, day in enumerate(row):
                 if day == "yes":
                     teacher.get_preferences().append(weekdays[index - 1])
-
 
 # simple test
 #
