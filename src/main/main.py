@@ -1,4 +1,5 @@
 from src.input_parsing.parser_algorithm import InputParser
+from src.output_formatting.output_algorithms import parametrized, create_xlsx
 
 
 def get_schedule():
@@ -36,7 +37,7 @@ def get_schedule():
     ta_capacity = parse.get_ta_courses_capacity()
     course_groups = parse.get_course_groups_dict()
 
-    coursesOfYear = dict(filter(lambda x: x[1]._study_year == 2 or x[1]._study_year == 1, courses.items()))
+    coursesOfYear = dict(filter(lambda x: x[1]._study_year in (1, 2), courses.items()))
 
     info = []
     for i in coursesOfYear:
@@ -116,6 +117,7 @@ def get_schedule():
                         else:
                             print("Any ERROR")
         printDict(week)
-    return week
+    return week, tuple(x for x in groups)
 
-get_schedule()
+week, groups = get_schedule()
+create_xlsx(parametrized(week), groups)
