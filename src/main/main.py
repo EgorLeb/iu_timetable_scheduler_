@@ -37,7 +37,7 @@ def get_schedule():
     ta_capacity = parse.get_ta_courses_capacity()
     course_groups = parse.get_course_groups_dict()
 
-    coursesOfYear = dict(filter(lambda x: x[1]._study_year in (1, 2), courses.items()))
+    coursesOfYear = dict(filter(lambda x: x[1]._study_year in (1, 2, 3, 4), courses.items()))
 
     info = []
     for i in coursesOfYear:
@@ -61,12 +61,27 @@ def get_schedule():
     }
 
     def secondYear(ind):
-        nonlocal week_busy, info
+        nonlocal week_busy, info, sport_days
         if ind == len(info):
             return True
         course = info[ind][0]
         for s in set(teachers[coursesOfYear[course]._teacher._name]._preferences):
             flag = True
+
+            # подсчет того, может ли ТА с большим количеством групп в один день (Например Злата у нее 4 пары)
+            count_of_classes = 1
+            if course in tutors:
+                count_of_classes += 1
+            n = 0
+            for i in info[ind][2]:
+                n = max(n, ta_capacity[i][course])
+            count_of_classes += n
+
+            if count_of_classes > 6 - (1 if s in sport_days else 0):
+                flag = False
+            if not flag:
+                continue
+
             for i in week_busy[s]:
                 #  проверка на то что не совпадают лекции у одного препода в один день
                 if coursesOfYear[i[0]]._teacher._name == coursesOfYear[course]._teacher._name:
@@ -91,8 +106,8 @@ def get_schedule():
 
     sort_rooms = list(rooms)
     sort_rooms.sort(key=lambda x: rooms[x].room_capacity, reverse=True)
+    week = createEmptyWeek(sport_days, rooms)
     if flag_of_algorithm:
-        week = createEmptyWeek(sport_days, rooms)
         for i in week_busy:
             ind_free_room = 0
             a = week_busy[i]
@@ -116,8 +131,13 @@ def get_schedule():
                             ind_of_group += 1
                         else:
                             print("Any ERROR")
-        printDict(week)
+    else:
+        print("Я не смог составить рассписание")
+    for i in sport_days:
+        week[i].insert(0, {'Sport Complex': ["Sport", "", list(groups)]})
+    printDict(week)
     return week, tuple(x for x in groups)
 
 week, groups = get_schedule()
+# get_schedule()
 create_xlsx(parametrized(week), groups)
