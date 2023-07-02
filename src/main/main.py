@@ -132,9 +132,9 @@ def get_schedule():
                         else:
                             print("Any ERROR")
     else:
-        print("Я не смог составить рассписание")
+        print("Я не смог составить рассписание")                  
     for i in sport_days:
-        week[i].insert(0, {'Sport Complex': ["Sport", "", list(groups)]})
+        week[i].insert(0, {'Sport Complex': ["Sport Electives", "", list(groups)]})
     printDict(week)
     return week, tuple(x for x in groups)
 
