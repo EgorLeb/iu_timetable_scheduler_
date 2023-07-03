@@ -132,13 +132,13 @@ def prettify(sheet, number_of_groups):
                 current_value = str(current_value).strip()
                 continue
             if (current_value == str(sheet.cell(row=row_number, column=column).value).strip() and
-                    (current_value != "" and current_value != "None")):
+                    (current_value != "None")):
                 if column == number_of_groups + 1:
                     sheet.merge_cells(start_column=start_column, end_column=column,
                                       start_row=row_number, end_row=row_number)
                 continue
             elif (current_value == str(sheet.cell(row=row_number, column=column).value).strip() and
-                  (current_value == "" or current_value == "None")):
+                  (current_value == "None")):
                 start_column = column
             else:
                 if start_column != column - 1:
@@ -146,7 +146,4 @@ def prettify(sheet, number_of_groups):
                                       start_row=row_number, end_row=row_number)
                 start_column = column
                 current_value = sheet.cell(row=row_number, column=column).value
-                if current_value is None:
-                    current_value = ""
-                else:
-                    current_value = str(current_value).strip()
+                current_value = str(current_value).strip()
