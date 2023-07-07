@@ -13,6 +13,7 @@ build-job:
     - apt install python3-pip -y
     - apt install python3-venv -y
     - python3 -m venv build_environment
+    - source build_environment/bin/activate
     - pip install pylint
     - pip install pandas
     - pip install openpyxl
