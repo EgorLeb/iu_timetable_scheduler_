@@ -1,0 +1,46 @@
+# For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
+
+stages:          # List of stages for jobs, and their order of execution
+  # - build
+  - test
+  # - deploy
+
+# build-job:
+#   stage: build
+#   script:
+#     - echo "Building..."
+
+unit-test-job:
+  stage: test
+  script:
+    - echo "Running unit tests... This will take about 15 seconds."
+    - sleep 15
+    - echo "Code coverage is 90%"
+
+lint-test-job:
+  stage: test
+  before_script:
+    - apt update
+    - apt install python3 -y
+    - apt install python3-pip -y
+    - apt install python3-venv -y
+    - python3 -m venv build_environment
+    - source build_environment/bin/activate
+    - pip install pylint anybadge pylint-exit
+  script:
+    # - pylint src/*/*.py --exit-zero
+    - mkdir ./pylint
+    - pylint --output-format=text src/*/*.py src/*/*/*.py | tee ./pylint/pylint.log || pylint-exit $?
+    - PYLINT_SCORE=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' ./pylint/pylint.log)
+    - anybadge --label=Linter --file=pylint/pylint.svg --value=$PYLINT_SCORE 2.5=red 5=orange 7.5=yellow 10=green
+    - echo "Pylint score is $PYLINT_SCORE"
+  artifacts:
+    paths:
+      - ./pylint/
+
+# deploy-job:
+#   stage: deploy
+#   environment: production
+#   script:
+#     - echo "Deploying application..."
+#     - echo "Application successfully deployed."
