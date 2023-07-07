@@ -8,8 +8,7 @@ stages:          # List of stages for jobs, and their order of execution
 build-job:
   stage: build
   script:
-    - python3 -v
-    - echo "Compile complete."
+    - echo "Building..."
 
 unit-test-job:
   stage: test
