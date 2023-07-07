@@ -32,7 +32,7 @@ lint-test-job:
     - mkdir ./pylint
     - pylint --output-format=text src/*/*.py src/*/*/*.py | tee ./pylint/pylint.log || pylint-exit $?
     - PYLINT_SCORE=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' ./pylint/pylint.log)
-    - anybadge --label=Linter --file=pylint/pylint.svg --value=$PYLINT_SCORE 2.5=red 5=orange 7.5=yellow 10=green
+    - anybadge --label=linting --file=pylint/pylint.svg --value=$PYLINT_SCORE 2.5=red 5=orange 7.5=yellow 10=green
     - echo "Pylint score is $PYLINT_SCORE"
   artifacts:
     paths:
