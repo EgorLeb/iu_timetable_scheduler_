@@ -10,9 +10,10 @@ build-job:
   script:
     - apt update
     - apt install python3 -y
-    # - pip install pylint
-    # - pip install pandas
-    # - pip install openpyxl
+    - apt install python3-pip -y
+    - pip install pylint
+    - pip install pandas
+    - pip install openpyxl
 
 unit-test-job:
   stage: test
