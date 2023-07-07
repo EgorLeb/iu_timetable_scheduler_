@@ -8,7 +8,9 @@ stages:          # List of stages for jobs, and their order of execution
 build-job:
   stage: build
   script:
-    - echo "Building..."
+    - pip install pylint
+    - pip install pandas
+    - pip install openpyxl
 
 unit-test-job:
   stage: test
