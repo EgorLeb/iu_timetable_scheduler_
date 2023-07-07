@@ -9,7 +9,7 @@ build-job:
   stage: build
   script:
     - apt update
-    - apt install python3
+    - apt install python3 -y
     # - pip install pylint
     # - pip install pandas
     # - pip install openpyxl
