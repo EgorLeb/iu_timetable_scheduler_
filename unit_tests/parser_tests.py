@@ -10,7 +10,7 @@ from src.input_parsing.parser_algorithm import InputParser
 class TestInputParser(unittest.TestCase):
 
     def test_parse_lectures(self):
-        path = Path('../').resolve() / 'input_data/Time_Table_Input.xlsx'
+        path = Path('../').resolve() / 'iu_timetable_scheduler/input_data/Time_Table_Input.xlsx'
         ip = InputParser(path_to_input=path)
         lectures = ip.get_lectures()
         tutorials = ip.get_tutorials()
@@ -25,7 +25,7 @@ class TestInputParser(unittest.TestCase):
             self.assertIn(class_obj.get_format(), ["Online", "Offline"])
 
     def test_parse_groups(self):
-        path = Path('../').resolve() / 'input_data/Time_Table_Input.xlsx'
+        path = Path('../').resolve() / 'iu_timetable_scheduler/input_data/Time_Table_Input.xlsx'
         ip = InputParser(path_to_input=path)
 
         groups = ip.get_groups()
@@ -38,7 +38,7 @@ class TestInputParser(unittest.TestCase):
             self.assertEqual(group_name, group.get_name())
 
     def test_parse_rooms(self):
-        path = Path('../').resolve() / 'input_data/Time_Table_Input.xlsx'
+        path = Path('../').resolve() / 'iu_timetable_scheduler/input_data/Time_Table_Input.xlsx'
         ip = InputParser(path_to_input=path)
 
         rooms = ip.get_rooms()
@@ -51,7 +51,7 @@ class TestInputParser(unittest.TestCase):
             self.assertEqual(room_number, room.room_number)
 
     def test_parse_sport_days(self):
-        path = Path('../').resolve() / 'input_data/Time_Table_Input.xlsx'
+        path = Path('../').resolve() / 'iu_timetable_scheduler/input_data/Time_Table_Input.xlsx'
         ip = InputParser(path_to_input=path)
 
         sport_days = ip.get_sport_days()
@@ -65,7 +65,7 @@ class TestInputParser(unittest.TestCase):
             self.assertIn(day, weekdays)
 
     def test_parse_teacher_preferences(self):
-        path = Path('../').resolve() / 'input_data/Time_Table_Input.xlsx'
+        path = Path('../').resolve() / 'iu_timetable_scheduler/input_data/Time_Table_Input.xlsx'
         ip = InputParser(path_to_input=path)
 
         teachers = ip.get_teachers()
