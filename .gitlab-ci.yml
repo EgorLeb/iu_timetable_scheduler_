@@ -12,10 +12,15 @@ stages:          # List of stages for jobs, and their order of execution
 
 unit-test-job:
   stage: test
+  before_script:
+    - apt update
+    - apt install python3 -y
+    - apt install python3-pip -y
+    - apt install python3-venv -y
+    - python3 -m venv build_environment
+    - source build_environment/bin/activate
   script:
-    - echo "Running unit tests... This will take about 15 seconds."
-    - sleep 15
-    - echo "Code coverage is 90%"
+    - python3 unit_tests/parser_tests.py
 
 lint-test-job:
   stage: test
