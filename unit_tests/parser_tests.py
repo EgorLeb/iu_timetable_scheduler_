@@ -1,6 +1,8 @@
 import unittest
 from pathlib import Path
 
+sys.path.append(str(Path(__file__).parents[1].resolve()))
+
 from src.input_parsing.parser_algorithm import InputParser
 
 
