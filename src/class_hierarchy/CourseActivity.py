@@ -30,12 +30,6 @@ class CourseActivity:
         self._activity_type = activity_type
         self._study_groups = None
 
-    def set_study_group(self, study_groups: list):
-        self._study_groups = study_groups
-
-    def get_study_group(self):
-        return self._study_groups
-
     def get_teacher(self):
         return self._teacher
 
