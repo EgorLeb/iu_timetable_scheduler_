@@ -23,7 +23,7 @@ unit-test-job:
   script:
     - coverage run unit_tests/parser_tests.py
     - coverage report
-  coverage: /*TOTAL.*\s+(\d+%)$*/
+  coverage: '/TOTAL.*\s+(\d+%)$/'
 
 lint-test-job:
   stage: test
