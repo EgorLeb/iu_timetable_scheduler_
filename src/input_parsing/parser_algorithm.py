@@ -8,9 +8,9 @@ from pathlib import Path
 
 
 class InputParser:
-    def __init__(self):
+    def __init__(self,
+                 path_to_input=Path('../..').resolve() / 'input_data/Time_Table_Input.xlsx'):
         # initialize absolute path to the input file (/input_data/Time_Table_Input.xlsx)
-        path_to_input = Path('../..').resolve() / 'input_data/Time_Table_Input.xlsx'
 
         # initialize input file field using pandas library
         self._input_file = pd.read_excel(path_to_input, sheet_name=None)
@@ -113,7 +113,9 @@ class InputParser:
             for teacher_name, activity_type in \
                     zip([prim_instructor, tut_instructor], ["Lecture", "Tutorial"]):
                 if teacher_name != '-':
-                    self._teachers[teacher_name] = Teacher(teacher_name)
+                    if teacher_name not in self._teachers.keys():
+                        self._teachers[teacher_name] = Teacher(teacher_name)
+
                     classes[index][course_name] = CourseActivity(course_name,
                                                                  course_type,
                                                                  course_formats[index],
@@ -134,7 +136,7 @@ class InputParser:
         for row in self._input_file['TA-Course-Groups'].values:
 
             teacher_name = row[0].strip()
-            if teacher_name not in self._teachers:
+            if teacher_name not in self._teachers.keys():
                 self._teachers[teacher_name] = Teacher(teacher_name)
 
             if self._teachers[teacher_name] not in self._ta_courses_capacity:
@@ -157,16 +159,19 @@ class InputParser:
 
         for row in self._input_file['Teacher Preferences'].values:
             teacher_name = row[0].strip()
-            if teacher_name not in self._teachers.keys():
-                raise NoTeacherPreferenceException(teacher_name)
 
             teacher = self._teachers[row[0].strip()]
             for index, day in enumerate(row):
                 if day == "yes":
                     teacher.get_preferences().append(weekdays[index - 1])
 
-# simple test
-#
-# ip = InputParser()
-# print(ip.get_course_groups_dict()["Mathematical Analysis II / Математический анализ II"])
-# print(ip.get_ta_courses_capacity()[ip.get_teachers()["Zlata Shchedrikova"]].keys())
+        for lec in self._lectures.values():
+            teacher = lec.get_teacher()
+            if not teacher.get_preferences():
+                raise NoTeacherPreferenceException(teacher)
+
+
+if __name__ == '__main__':
+    ip = InputParser()
+    print(ip.get_course_groups_dict()["Mathematical Analysis II"])
+    print(ip.get_ta_courses_capacity()[ip.get_teachers()["Zlata Shchedrikova"]].keys())
