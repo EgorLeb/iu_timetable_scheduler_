@@ -21,9 +21,9 @@ unit-test-job:
     - source build_environment/bin/activate
     - pip install pandas openpyxl coverage
   script:
-    - python3 unit_tests/parser_tests.py
-    - python -m coverage run -m unittest
-    - python -m coverage report
+    - coverage run unit_tests/parser_tests.py
+    - coverage report
+  coverage: /*TOTAL.*\s+(\d+%)$*/
 
 lint-test-job:
   stage: test
