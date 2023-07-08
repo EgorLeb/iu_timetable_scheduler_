@@ -19,9 +19,11 @@ unit-test-job:
     - apt install python3-venv -y
     - python3 -m venv build_environment
     - source build_environment/bin/activate
-    - pip install pandas openpyxl
+    - pip install pandas openpyxl coverage
   script:
     - python3 unit_tests/parser_tests.py
+    - python -m coverage run -m unittest
+    - python -m coverage report
 
 lint-test-job:
   stage: test
