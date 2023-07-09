@@ -46,8 +46,9 @@
                             <form action="" method=post enctype=multipart/form-data>
                                 <div id = "drop-zone">Select or drop your input file here</div>
                                 <label for="uploadbtn" class="labelSelect">Select file<div></div></label>
-                                <input style="opacity: 0; z-index: -1;" multiple type="file" name="file" accept=".xlsx" id="uploadbtn" />
-                                <div class = "file"></div>
+                                <input style="opacity: 0; z-index: -1;" multiple type="file" name="file" accept=".xlsx" id="uploadbtn" 
+                                onchange="processSelectedFiles(this)"/>
+                                <div class = "file" id = "selfile">File isn't selected</div>
                                 <input type="submit" class="labelSelect" name = "uploadFile" value="Submit"></p>
                             </form> 
                             
