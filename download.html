@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type ="text/css" href="{{ url_for('static', filename='css/upl.css') }}">
-                
-        <title>UI Time table scheduler</title>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/upl.css') }}">
+    <title>UI Time table scheduler</title>
+</head>
     <body>
         <div class = "page">
-            <div class = "frame">
-                <div class ="back">
-                    <div class = "ellipse1"></div>
-                    <div class = "ellipse1 ellipse2"></div>
-                    <div class = "ellipse1 ellipse3"></div>
+            <div class="frame">
+                <div class="back">
+                    <div class="ellipse1"></div>
+                    <div class="ellipse1 ellipse2"></div>
+                    <div class="ellipse1 ellipse3"></div>
                 </div>
-                <div class = "heading">
-                   <h1 class = "title">TIME TABLE SCHEDULER FOR INNOPOLIS</h1>
-                   <div class = "line-1"></div> 
-                </div>
-                <div class = "parent" id = "download-design">
-                    <div class = "rectangle-up">
-                        <div class = "textShiftUpload btnFont">DOWNLOAD RESULT</div>
-                        <form method="post" enctype=multipart/form-data>
-                            <a href = "url_for('download')"  download>
-                            <button class = "btn btnShift btnFont" id = "download">DOWNLOAD</button>
-                        </a>
-                        </form>
-                        
+                <div class="heading">
+
+                    <p class="caption">
+                        TIME TABLE SCHEDULER FOR INNOPOLIS
+                    </p>
+
+                    <div class="line1">
                     </div>
-                    <button id = "redo">&#11119;</button>
+
+                </div>
+                <div class="parent" id="download-design">
+                    <div class="rectangle-up">
+                        <div class="textShiftUpload btnFont">DOWNLOAD RESULT</div>
+                        <form method="post" enctype=multipart/form-data>
+                            <a href="url_for('download')" download class=" btn1 btnShift btnFont no-line" id="download">
+                                DOWNLOAD
+                            </a>
+                        </form>
+
+                    </div>
+                    <button id="redo">&#11119;</button>
                 </div>
             </div>
         </div>
