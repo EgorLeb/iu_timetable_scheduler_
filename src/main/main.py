@@ -1,5 +1,6 @@
 from src.input_parsing.parser_algorithm import InputParser
 from src.output_formatting.output_algorithms import parametrized, create_xlsx
+import copy
 
 
 def get_schedule():
@@ -26,6 +27,20 @@ def get_schedule():
             week[i] = week[i][1:]
         return week
 
+    def getCourses(type):
+        coursesOfYear = dict(
+            filter(lambda x: x[1]._study_year in (1, 2, 3, 4) and x[1].get_type() == type, courses.items()))
+        info = []
+        for i in coursesOfYear:
+            info.append([i, course_groups[i]])
+            tas = []
+            for j in ta_capacity:
+                if i in ta_capacity[j]:
+                    tas.append(j)
+            info[-1].append(tas)
+        info.sort(key=lambda x: len(x[1]), reverse=True)
+        return info, coursesOfYear
+
     parse = InputParser()
     print("start my program")
     groups = parse.get_groups()
@@ -37,20 +52,9 @@ def get_schedule():
     ta_capacity = parse.get_ta_courses_capacity()
     course_groups = parse.get_course_groups_dict()
 
-    coursesOfYear = dict(filter(lambda x: x[1]._study_year in (1, 2, 3, 4), courses.items()))
+    infoG, coursesOfYearG = getCourses("Full")
 
-    info = []
-    for i in coursesOfYear:
-        info.append([i, course_groups[i]])
-        tas = []
-        for j in ta_capacity:
-            if i in ta_capacity[j]:
-                tas.append(j)
-        info[-1].append(tas)
-
-    info.sort(key=lambda x: len(x[1]), reverse=True)
-
-    week_busy = {
+    week_busy_tmp = {
         "Mon": [],
         "Tue": [],
         "Wed": [],
@@ -60,10 +64,11 @@ def get_schedule():
         "Sun": []
     }
 
-    def secondYear(ind):
-        nonlocal week_busy, info, sport_days
+    def createBlock(ind, info, coursesOfYear, week_busy):
+        nonlocal sport_days
         if ind == len(info):
-            return True
+            yield week_busy
+            return
         course = info[ind][0]
         for s in set(teachers[coursesOfYear[course]._teacher._name]._preferences):
             flag = True
@@ -81,7 +86,6 @@ def get_schedule():
                 flag = False
             if not flag:
                 continue
-
             for i in week_busy[s]:
                 #  проверка на то что не совпадают лекции у одного препода в один день
                 if coursesOfYear[i[0]]._teacher._name == coursesOfYear[course]._teacher._name:
@@ -94,49 +98,130 @@ def get_schedule():
                         break
             if flag:
                 week_busy[s].append(info[ind])
-                res = secondYear(ind + 1)
-                if not res:
-                    week_busy[s] = week_busy[s][:-1]
-                else:
-                    return True
-        return False
+                res = createBlock(ind + 1, info, coursesOfYear, week_busy)
+                for r in res:
+                    yield week_busy
+                week_busy[s] = week_busy[s][:-1]
 
-    flag_of_algorithm = secondYear(0)
-    printDict(week_busy)
+    generalCourses = createBlock(0, infoG, coursesOfYearG, week_busy_tmp)
 
     sort_rooms = list(rooms)
     sort_rooms.sort(key=lambda x: rooms[x].room_capacity, reverse=True)
-    week = createEmptyWeek(sport_days, rooms)
-    if flag_of_algorithm:
-        for i in week_busy:
-            ind_free_room = 0
-            a = week_busy[i]
-            a.sort(key=lambda x: len(x[1]), reverse=True)
-            for k in a:
-                week[i][0][sort_rooms[ind_free_room]] = [k[0] + ' (lec)', courses[k[0]]._teacher._name, k[1]]
-                if k[0] in tutors:
-                    week[i][1][sort_rooms[ind_free_room]] = [k[0] + ' (tut)', tutors[k[0]]._teacher._name, k[1]]
-                ind_free_room += 1
-                ind_of_group = 0
-                for j in k[2]:
-                    for d in range(ta_capacity[j][k[0]]):
-                        m = 100000
-                        minimum_room = ''
-                        for t in sort_rooms:
-                            if week[i][2 + d][t] is None and m > rooms[t].room_capacity >= groups[k[1][ind_of_group]]._people_number:
-                                m = rooms[t].room_capacity
-                                minimum_room = t
-                        if minimum_room != '':
-                            week[i][2 + d][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
-                            ind_of_group += 1
-                        else:
-                            print("Any ERROR")
-    else:
-        print("Я не смог составить рассписание")                  
-    for i in sport_days:
-        week[i].insert(0, {'Sport Complex': ["Sport Electives", "", list(groups)]})
-    printDict(week)
-    return week, tuple(x for x in groups)
+    week1 = createEmptyWeek(sport_days, rooms)
+    week2 = createEmptyWeek(sport_days, rooms)
+    for G in generalCourses:
+        week_busy_save = {
+            "Mon": [],
+            "Tue": [],
+            "Wed": [],
+            "Thu": [],
+            "Fri": [],
+            "Sat": [],
+            "Sun": []
+        }
+        for i in week_busy_save:
+            for k in G[i]:
+                week_busy_save[i].append(k)
+        week_busy_save2 = {
+            "Mon": [],
+            "Tue": [],
+            "Wed": [],
+            "Thu": [],
+            "Fri": [],
+            "Sat": [],
+            "Sun": []
+        }
+        for i in week_busy_save2:
+            for k in G[i]:
+                week_busy_save2[i].append(k)
 
-# week1, week2, groups = get_schedule()
-# create_xlsx(parametrized(week1), parametrized(week2), groups)
+        infoBlock1, coursesOfYearBlock1 = getCourses("Block 1")
+        B1 = createBlock(0, infoBlock1, dict(list(coursesOfYearBlock1.items()) + list(coursesOfYearG.items())),
+                         week_busy_save2)
+        infoBlock2, coursesOfYearBlock2 = getCourses("Block 2")
+        B2 = createBlock(0, infoBlock2, dict(list(coursesOfYearBlock2.items()) + list(coursesOfYearG.items())),
+                         week_busy_save)
+        for b1 in B1:
+            # print(b1)
+
+            for b2 in B2:
+
+                # print(b1)
+                # print(b2)
+                q = []
+                for i in b1:
+                    week_busy = b1
+                    ind_free_room = 0
+                    a = week_busy[i]
+                    a.sort(key=lambda x: len(x[1]), reverse=True)
+                    for k in a:
+                        week1[i][0][sort_rooms[ind_free_room]] = [k[0] + ' (lec)', courses[k[0]]._teacher._name, k[1]]
+                        if k[0] in tutors:
+                            week1[i][1][sort_rooms[ind_free_room]] = [k[0] + ' (tut)', tutors[k[0]]._teacher._name,
+                                                                      k[1]]
+                        ind_free_room += 1
+                        ind_of_group = 0
+                        for j in k[2]:
+                            for d in range(ta_capacity[j][k[0]]):
+                                m = 100000
+                                minimum_room = ''
+                                for t in sort_rooms:
+                                    if week1[i][2 + d][t] is None and \
+                                            m > rooms[t].room_capacity >= groups[k[1][ind_of_group]]._people_number:
+                                        m = rooms[t].room_capacity
+                                        minimum_room = t
+                                if minimum_room != '':
+                                    week1[i][2 + d][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
+                                    ind_of_group += 1
+                                else:
+                                    print("Any ERROR")
+                                    
+                                    
+                for i in b2:
+                    week_busy = b2
+                    ind_free_room = 0
+                    a = week_busy[i]
+                    a.sort(key=lambda x: len(x[1]), reverse=True)
+                    for k in a:
+                        week2[i][0][sort_rooms[ind_free_room]] = [k[0] + ' (lec)', courses[k[0]]._teacher._name, k[1]]
+                        if k[0] in tutors:
+                            week2[i][1][sort_rooms[ind_free_room]] = [k[0] + ' (tut)', tutors[k[0]]._teacher._name,
+                                                                      k[1]]
+                        ind_free_room += 1
+                        ind_of_group = 0
+                        for j in k[2]:
+                            for d in range(ta_capacity[j][k[0]]):
+                                m = 100000
+                                minimum_room = ''
+                                for t in sort_rooms:
+                                    if week2[i][2 + d][t] is None and m > rooms[t].room_capacity >= groups[
+                                        k[1][ind_of_group]]._people_number:
+                                        m = rooms[t].room_capacity
+                                        minimum_room = t
+                                if minimum_room != '':
+                                    week2[i][2 + d][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
+                                    ind_of_group += 1
+                                else:
+                                    print("Any ERROR")
+                break
+            else:
+                continue
+            break
+        else:
+            continue
+        break
+    else:
+        print("Я не смог составить рассписание")
+
+    for i in sport_days:
+        week2[i].insert(0, {'Sport Complex': ["Sport", "Electives", list(groups)]})
+    for i in sport_days:
+        week1[i].insert(0, {'Sport Complex': ["Sport", "Electives", list(groups)]})
+    printDict(week1)
+    printDict(week2)
+    return week1, week2, tuple(x for x in groups)
+
+
+week1, week2, groups = get_schedule()
+# get_schedule()
+create_xlsx(parametrized(week1), parametrized(week2), groups)
