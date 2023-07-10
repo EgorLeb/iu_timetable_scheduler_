@@ -1,6 +1,5 @@
 from src.input_parsing.parser_algorithm import InputParser
 from src.output_formatting.output_algorithms import parametrized, create_xlsx
-import copy
 
 
 def get_schedule():
@@ -162,7 +161,7 @@ def get_schedule():
                         ind_free_room += 1
                         ind_of_group = 0
                         for j in k[2]:
-                            for d in range(ta_capacity[j][k[0]]):
+                            for d in range(min(3, ta_capacity[j][k[0]])):
                                 m = 100000
                                 minimum_room = ''
                                 for t in sort_rooms:
@@ -172,11 +171,40 @@ def get_schedule():
                                         minimum_room = t
                                 if minimum_room != '':
                                     week1[i][2 + d][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
+                                    if k[0] in coursesOfYearBlock1:
+                                        q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                     ind_of_group += 1
                                 else:
-                                    print("Any ERROR")
-                                    
-                                    
+                                    q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                                    if k[0] in coursesOfYearBlock1:
+                                        q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                            for d in range(3, ta_capacity[j][k[0]]):
+                                q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                                ind_of_group += 1
+                print(q)
+                for i in q:
+                    for j in set(list(createEmptyWeek(sport_days, rooms))):
+                        for k in range(2, len(week1[j])):
+                            flag = True
+                            for l in week1[j][k]:
+                                if week1[j][k][l] is not None and i[2].get_name() in week1[j][k][l][2]:
+                                    flag = False
+                            if flag:
+                                for l in week1[j][k]:
+                                    if week1[j][k][l] is None and rooms[l].room_capacity >= i[2].get_people_number():
+                                        week1[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name, [i[2].get_name()]]
+                                        break
+                                else:
+                                    continue
+                                break
+                        else:
+                            continue
+                        break
+                    else:
+                        print("Что-то не добавилось(")
+
+
+                q = []
                 for i in b2:
                     week_busy = b2
                     ind_free_room = 0
@@ -190,19 +218,54 @@ def get_schedule():
                         ind_free_room += 1
                         ind_of_group = 0
                         for j in k[2]:
-                            for d in range(ta_capacity[j][k[0]]):
+                            for d in range(min(3, ta_capacity[j][k[0]])):
                                 m = 100000
                                 minimum_room = ''
+                                any_room = ''
                                 for t in sort_rooms:
                                     if week2[i][2 + d][t] is None and m > rooms[t].room_capacity >= groups[
                                         k[1][ind_of_group]]._people_number:
                                         m = rooms[t].room_capacity
                                         minimum_room = t
+                                    if week2[i][2 + d][t] is None:
+                                        any_room = t
                                 if minimum_room != '':
                                     week2[i][2 + d][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
+                                    if k[0] in coursesOfYearBlock2:
+                                        q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                     ind_of_group += 1
                                 else:
-                                    print("Any ERROR")
+                                    q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                                    if k[0] in coursesOfYearBlock2:
+                                        q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                            for d in range(3, ta_capacity[j][k[0]]):
+                                q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                                ind_of_group += 1
+                for i in q:
+                    for j in set(list(createEmptyWeek(sport_days, rooms))):
+                        for k in range(2, len(week2[j])):
+                            flag = True
+                            for l in week2[j][k]:
+                                if week2[j][k][l] is not None and i[2].get_name() in week2[j][k][l][2]:
+                                    flag = False
+                            if flag:
+                                for l in week2[j][k]:
+                                    if week2[j][k][l] is None and rooms[l].room_capacity >= i[2].get_people_number():
+                                        week2[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name, [i[2].get_name()]]
+                                        break
+                                else:
+                                    continue
+                                break
+                        else:
+                            continue
+                        break
+                    else:
+                        print("Что-то не добавилось(")
+
+
+
+
+
                 break
             else:
                 continue
@@ -217,11 +280,10 @@ def get_schedule():
         week2[i].insert(0, {'Sport Complex': ["Sport", "Electives", list(groups)]})
     for i in sport_days:
         week1[i].insert(0, {'Sport Complex': ["Sport", "Electives", list(groups)]})
-    printDict(week1)
-    printDict(week2)
+    # printDict(week1)
+    # printDict(week2)
     return week1, week2, tuple(x for x in groups)
 
 
 week1, week2, groups = get_schedule()
-# get_schedule()
 create_xlsx(parametrized(week1), parametrized(week2), groups)
