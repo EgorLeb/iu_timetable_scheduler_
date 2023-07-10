@@ -24,34 +24,53 @@ def parametrized(week):
 
 
 # week format: (weekday, class_number, group_name) -> (room_number, class_name, instructor)
-def create_xlsx(week, groups):
+def create_xlsx(block1, block2, groups):
     wb = Workbook()
     for year in YEARS:
         year_groups = list(filter(lambda x: x.startswith(year), groups))
-        entries = list(filter(lambda x: x[2] in year_groups, week.keys()))
-        year_sheet = wb.create_sheet(year)
+        entries_block1 = list(filter(lambda x: x[2] in year_groups, block1.keys()))
+        entries_block2 = list(filter(lambda x: x[2] in year_groups, block2.keys()))
+        year_sheet_block1 = wb.create_sheet(year + " (block 1)")
+        year_sheet_block2 = wb.create_sheet(year + " (block 2)")
 
         for column_number, group in enumerate(sorted(year_groups), 2):
-            year_sheet.cell(row=1, column=column_number, value=group)
+            year_sheet_block1.cell(row=1, column=column_number, value=group)
+            year_sheet_block2.cell(row=1, column=column_number, value=group)
         for weekday in WEEKDAYS:
-            year_sheet.cell(row=get_row_offset(weekday, 0), column=1, value=weekday)
+            year_sheet_block1.cell(row=get_row_offset(weekday, 0), column=1, value=weekday)
+            year_sheet_block2.cell(row=get_row_offset(weekday, 0), column=1, value=weekday)
             for class_number in range(0, 6):
-                year_sheet.cell(row=get_row_offset(weekday, class_number) + 1, column=1,
-                                value=PERIODS[class_number])
+                year_sheet_block1.cell(row=get_row_offset(weekday, class_number) + 1, column=1,
+                                       value=PERIODS[class_number])
+                year_sheet_block2.cell(row=get_row_offset(weekday, class_number) + 1, column=1,
+                                       value=PERIODS[class_number])
 
-        for slot in entries:
+        for slot in entries_block1:
             weekday = slot[0]
             class_number = slot[1]
             column_number = sorted(year_groups).index(slot[2]) + 2
             row_number = get_row_offset(weekday, class_number)
-            room_number = week[slot][0]
-            year_sheet.cell(row=row_number + 3, column=column_number, value=room_number)
-            class_name = week[slot][1]
-            year_sheet.cell(row=row_number + 1, column=column_number, value=class_name)
-            instructor = week[slot][2]
-            year_sheet.cell(row=row_number + 2, column=column_number, value=instructor)
+            room_number = block1[slot][0]
+            year_sheet_block1.cell(row=row_number + 3, column=column_number, value=room_number)
+            class_name = block1[slot][1]
+            year_sheet_block1.cell(row=row_number + 1, column=column_number, value=class_name)
+            instructor = block1[slot][2]
+            year_sheet_block1.cell(row=row_number + 2, column=column_number, value=instructor)
 
-        prettify(year_sheet, len(year_groups))
+        for slot in entries_block2:
+            weekday = slot[0]
+            class_number = slot[1]
+            column_number = sorted(year_groups).index(slot[2]) + 2
+            row_number = get_row_offset(weekday, class_number)
+            room_number = block2[slot][0]
+            year_sheet_block2.cell(row=row_number + 3, column=column_number, value=room_number)
+            class_name = block2[slot][1]
+            year_sheet_block2.cell(row=row_number + 1, column=column_number, value=class_name)
+            instructor = block2[slot][2]
+            year_sheet_block2.cell(row=row_number + 2, column=column_number, value=instructor)
+
+        prettify(year_sheet_block1, len(year_groups))
+        prettify(year_sheet_block2, len(year_groups))
     wb.save("schedule.xlsx")
 
 

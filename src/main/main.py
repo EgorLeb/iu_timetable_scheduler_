@@ -138,6 +138,5 @@ def get_schedule():
     printDict(week)
     return week, tuple(x for x in groups)
 
-week, groups = get_schedule()
-# get_schedule()
-create_xlsx(parametrized(week), groups)
+# week1, week2, groups = get_schedule()
+# create_xlsx(parametrized(week1), parametrized(week2), groups)

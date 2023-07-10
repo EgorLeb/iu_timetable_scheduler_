@@ -48,7 +48,7 @@ class InputParser:
         """
         self._rooms = {}
         """
-        list of all week days where Elective courses on Physical Education are reserved
+        list of all block1 days where Elective courses on Physical Education are reserved
         example: ["Mon", "Tue"]
         """
         self._sport_classes_days = []
