@@ -3,7 +3,7 @@ from openpyxl.styles import PatternFill, Border, Side, Alignment, Font
 from openpyxl.utils import get_column_letter
 
 WEEKDAYS = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
-YEARS = ('B22', 'B21', 'B20', 'B19')
+YEARS = ('B22', 'B21', 'B20', 'B19', 'M22', 'M21')
 PERIODS = ("9:00-10:30", "10:40-12:10", "12:40-14:10", "14:20-15:50", "16:00-17:30", "17:40-19:00")
 
 
@@ -39,8 +39,11 @@ def create_xlsx(block1, block2, groups):
         year_sheet_block1 = wb.create_sheet(year + " (block 1)")
         year_sheet_block2 = wb.create_sheet(year + " (block 2)")
 
+        def augmented(group_tag):
+            return group_tag.replace("AI", "YAI").replace("DS", "YDS").replace("RO", "ZRO")
+
         # denoting groups and weekdays
-        for column_number, group in enumerate(sorted(year_groups), 2):
+        for column_number, group in enumerate(sorted(year_groups, key=augmented), 2):
             year_sheet_block1.cell(row=1, column=column_number, value=group)
             year_sheet_block2.cell(row=1, column=column_number, value=group)
             total_block1.cell(row=1, column=column_number + rest_width_offset, value=group)
@@ -55,15 +58,15 @@ def create_xlsx(block1, block2, groups):
                                        value=PERIODS[class_number])
                 year_sheet_block2.cell(row=get_row_offset(weekday, class_number) + 1, column=1,
                                        value=PERIODS[class_number])
-                total_block1.cell(row=get_row_offset(weekday, class_number) + 1, column=1,
+                total_block1.cell(row=get_row_offset(weekday, class_number) + 1, column=1+rest_width_offset,
                                   value=PERIODS[class_number])
-                total_block2.cell(row=get_row_offset(weekday, class_number) + 1, column=1,
+                total_block2.cell(row=get_row_offset(weekday, class_number) + 1, column=1+rest_width_offset,
                                   value=PERIODS[class_number])
 
         for slot in entries_block1:
             weekday = slot[0]
             class_number = slot[1]
-            column_number = sorted(year_groups).index(slot[2]) + 2
+            column_number = sorted(year_groups, key=augmented).index(slot[2]) + 2
             row_number = get_row_offset(weekday, class_number)
 
             room_number = block1[slot][0]
@@ -81,7 +84,7 @@ def create_xlsx(block1, block2, groups):
         for slot in entries_block2:
             weekday = slot[0]
             class_number = slot[1]
-            column_number = sorted(year_groups).index(slot[2]) + 2
+            column_number = sorted(year_groups, key=augmented).index(slot[2]) + 2
             row_number = get_row_offset(weekday, class_number)
 
             room_number = block2[slot][0]
@@ -96,12 +99,13 @@ def create_xlsx(block1, block2, groups):
             year_sheet_block2.cell(row=row_number + 2, column=column_number, value=instructor)
             total_block2.cell(row=row_number + 2, column=column_number+rest_width_offset, value=instructor)
 
-        rest_width_offset += len(year_groups)
+        rest_width_offset += len(year_groups) + 1
+
+        prettify(total_block1, rest_width_offset - 1, rest_width_offset - len(year_groups) - 1)
+        prettify(total_block2, rest_width_offset - 1, rest_width_offset - len(year_groups) - 1)
         prettify(year_sheet_block1, len(year_groups))
         prettify(year_sheet_block2, len(year_groups))
 
-    prettify(total_block1, rest_width_offset)
-    prettify(total_block2, rest_width_offset)
     wb.save("schedule.xlsx")
 
 
@@ -110,7 +114,7 @@ def get_row_offset(weekday, class_number):
     return 1 + weekday_number * 19 + 1 + class_number * 3
 
 
-def prettify(sheet, number_of_groups):
+def prettify(sheet, number_of_groups, class_period_column=0):
     # formatting the whole table
     alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
     for column in range(1+number_of_groups):
@@ -147,7 +151,8 @@ def prettify(sheet, number_of_groups):
             sheet[letter + row].border = border
 
     # formatting class periods
-    sheet.column_dimensions["A"].width = 12
+    letter = get_column_letter(1+class_period_column)
+    sheet.column_dimensions[letter].width = 12
     border = Border(left=Side(border_style="thin", color='FF000000'),
                     right=Side(border_style="thin", color='FF000000'),
                     top=Side(border_style="thin", color='FF000000'),
@@ -157,9 +162,9 @@ def prettify(sheet, number_of_groups):
         for class_number in range(0, 6):
             start_merge_row = get_row_offset(weekday, class_number) + 1
             end_merge_row = start_merge_row + 2
-            sheet.merge_cells(f"A{start_merge_row}:A{end_merge_row}")
-            sheet["A" + str(start_merge_row)].border = border
-            sheet["A" + str(start_merge_row)].fill = fill
+            sheet.merge_cells(f"{letter}{start_merge_row}:{letter}{end_merge_row}")
+            sheet[letter + str(start_merge_row)].border = border
+            sheet[letter + str(start_merge_row)].fill = fill
             row_offset = get_row_offset(weekday, class_number)
             for column in range(2, 2 + number_of_groups):
                 sheet.cell(column=column, row=row_offset + 1).border = \
