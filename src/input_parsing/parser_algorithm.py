@@ -5,6 +5,7 @@ from src.class_hierarchy.exception_classes.NoTeacherPreference import *
 from src.class_hierarchy.exception_classes.NotANumberProvided import *
 from src.class_hierarchy.exception_classes.NoSuchGroupExists import *
 from src.class_hierarchy.exception_classes.AlwaysNoAsPreference import *
+from src.class_hierarchy.exception_classes.WrongSheetName import *
 
 import pandas as pd
 from pathlib import Path
@@ -104,7 +105,10 @@ class InputParser:
 
     def _parse(self):
         classes = [self._lectures, self._tutorials]
-        for row in self._input_file['Courses'].values:
+        tab_name = 'Courses'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for row in self._input_file[tab_name].values:
             course_name = row[0].strip()
             course_formats = row[1].strip().split("/")
             course_type, study_year, prim_instructor, tut_instructor = row[2].strip(), \
@@ -113,7 +117,7 @@ class InputParser:
                 row[5].strip()
 
             if not str(study_year).isdigit():
-                raise NotANumberProvided("Courses", course_name)
+                raise NotANumberProvided(tab_name, course_name)
 
             index = 0
             for teacher_name, activity_type in \
@@ -130,15 +134,21 @@ class InputParser:
                                                                  activity_type)
                 index += 1
 
-        for row in self._input_file['Groups Info'].values:
+        tab_name = 'Groups Info'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for row in self._input_file[tab_name].values:
             group_name, people_num = row[0].strip(), int(row[1])
             if not str(people_num).isdigit():
-                raise NotANumberProvided("Groups Info",
+                raise NotANumberProvided(tab_name,
                                          f"Not a course, but group: {group_name}")
 
             self._groups[group_name] = Group(group_name, people_num)
 
-        for row in self._input_file['Course-Groups'].values:
+        tab_name = 'Course-Groups'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for row in self._input_file[tab_name].values:
             course_name = row[0].strip()
             groups = row[1].strip().split(", ")
 
@@ -148,7 +158,10 @@ class InputParser:
 
             self._course_groups_dict[course_name] = groups
 
-        for row in self._input_file['TA-Course-Groups'].values:
+        tab_name = 'TA-Course-Groups'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for row in self._input_file[tab_name].values:
 
             teacher_name = row[0].strip()
             if teacher_name not in self._teachers.keys():
@@ -160,26 +173,35 @@ class InputParser:
             course_name = row[1].strip()
             capacity = row[2]
             if not str(capacity).isdigit():
-                raise NotANumberProvided("TA-Course-Groups", course_name)
+                raise NotANumberProvided(tab_name, course_name)
 
             self._ta_courses_capacity[self._teachers[teacher_name]][course_name] = capacity
 
-        for index, row in enumerate(self._input_file['Rooms Info'].values):
+        tab_name = 'Rooms Info'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for index, row in enumerate(self._input_file[tab_name].values):
             room_number, capacity = row[0], row[1]
             if not str(room_number).isdigit() or not str(capacity).isdigit():
-                raise NotANumberProvided("Rooms Info",
+                raise NotANumberProvided(tab_name,
                                          f"Not a course, but line: {index + 1}")
 
             self._rooms[room_number] = Room(room_number, capacity)
 
         weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
-        for row in self._input_file['Sport Electives Reservations'].values:
+        tab_name = 'Sport Electives Reservations'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for row in self._input_file[tab_name].values:
             for index, day in enumerate(row):
                 if day == "Yes":
                     self._sport_classes_days.append(weekdays[index - 1])
 
-        for row in self._input_file['Teacher Preferences'].values:
+        tab_name = 'Teacher Preferences'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for row in self._input_file[tab_name].values:
             teacher_name = row[0].strip()
             teacher = self._teachers[teacher_name]
             counter = 0
