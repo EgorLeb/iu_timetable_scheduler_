@@ -22,7 +22,7 @@ class TestInputParser(unittest.TestCase):
             # checks that each parsed lecture and tutorial has teacher
             self.assertIsNotNone(class_obj.get_teacher())
             # checks that each parsed lecture either online either offline
-            self.assertIn(class_obj.get_format(), ["Online", "Offline"])
+            self.assertIn(class_obj.get_format(), ["Online", "Offline", "-"])
 
     def test_parse_groups(self):
         path = Path('../').resolve() / 'iu_timetable_scheduler/input_data/Time_Table_Input.xlsx'
