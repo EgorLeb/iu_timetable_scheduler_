@@ -7,6 +7,8 @@ from src.class_hierarchy.exception_classes.NoSuchGroupExists import *
 from src.class_hierarchy.exception_classes.AlwaysNoAsPreference import *
 from src.class_hierarchy.exception_classes.WrongSheetName import *
 from src.class_hierarchy.exception_classes.WrongFormatForSportReservation import *
+from src.class_hierarchy.exception_classes.WrongCourseActivityFormat import *
+from src.class_hierarchy.exception_classes.WrongCourseActivityType import *
 
 import pandas as pd
 from pathlib import Path
@@ -112,10 +114,17 @@ class InputParser:
         for row in self._input_file[tab_name].values:
             course_name = row[0].strip()
             course_formats = row[1].strip().split("/")
+            for c_format in course_formats:
+                if c_format not in ["Offline", "Online", "-"]:
+                    raise WrongCourseActivityFormat(c_format, course_name)
+
             course_type, study_year, prim_instructor, tut_instructor = row[2].strip(), \
                 row[3], \
                 row[4].strip(), \
                 row[5].strip()
+
+            if course_type not in ["Full", "Block 1", "Block 2"]:
+                raise WrongCourseActivityTypeException(course_type, course_name)
 
             if not str(study_year).isdigit():
                 raise NotANumberProvided(tab_name, course_name)
