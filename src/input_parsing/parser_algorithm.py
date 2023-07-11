@@ -112,12 +112,13 @@ class InputParser:
             course_name = row[0].strip()
             course_formats = row[1].strip().split("/")
             course_type, study_year, prim_instructor, tut_instructor = row[2].strip(), \
-                int(row[3]), \
+                row[3], \
                 row[4].strip(), \
                 row[5].strip()
 
             if not str(study_year).isdigit():
                 raise NotANumberProvided(tab_name, course_name)
+            study_year = int(study_year)
 
             index = 0
             for teacher_name, activity_type in \
@@ -138,11 +139,11 @@ class InputParser:
         if tab_name not in self._input_file.keys():
             raise WrongSheetNameProvided(tab_name)
         for row in self._input_file[tab_name].values:
-            group_name, people_num = row[0].strip(), int(row[1])
+            group_name, people_num = row[0].strip(), row[1]
             if not str(people_num).isdigit():
                 raise NotANumberProvided(tab_name,
                                          f"Not a course, but group: {group_name}")
-
+            people_num = int(people_num)
             self._groups[group_name] = Group(group_name, people_num)
 
         tab_name = 'Course-Groups'
@@ -184,7 +185,7 @@ class InputParser:
             room_number, capacity = row[0], row[1]
             if not str(room_number).isdigit() or not str(capacity).isdigit():
                 raise NotANumberProvided(tab_name,
-                                         f"Not a course, but line: {index + 1}")
+                                         f"Not a course, but line: {index + 2}")
 
             self._rooms[room_number] = Room(room_number, capacity)
 
