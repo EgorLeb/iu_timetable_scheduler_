@@ -28,7 +28,7 @@ def get_schedule():
 
     def getCourses(type):
         coursesOfYear = dict(
-            filter(lambda x: x[1]._study_year in (1, 2, 3, 4, 5) and x[1].get_type() == type, courses.items()))
+            filter(lambda x: x[1].get_type() == type, courses.items()))
         info = []
         for i in coursesOfYear:
             info.append([i, course_groups[i]])
@@ -161,7 +161,7 @@ def get_schedule():
                         ind_free_room += 1
                         ind_of_group = 0
                         for j in k[2]:
-                            for d in range(min(3, ta_capacity[j][k[0]])):
+                            for d in range(min(2, ta_capacity[j][k[0]])):
                                 m = 100000
                                 minimum_room = ''
                                 for t in sort_rooms:
@@ -178,7 +178,7 @@ def get_schedule():
                                     q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                     if k[0] in coursesOfYearBlock1:
                                         q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
-                            for d in range(3, ta_capacity[j][k[0]]):
+                            for d in range(2, ta_capacity[j][k[0]]):
                                 q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                 ind_of_group += 1
                 print(q)
@@ -219,7 +219,7 @@ def get_schedule():
                         ind_free_room += 1
                         ind_of_group = 0
                         for j in k[2]:
-                            for d in range(min(3, ta_capacity[j][k[0]])):
+                            for d in range(min(2, ta_capacity[j][k[0]])):
                                 m = 100000
                                 minimum_room = ''
                                 any_room = ''
@@ -239,7 +239,7 @@ def get_schedule():
                                     q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                     if k[0] in coursesOfYearBlock2:
                                         q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
-                            for d in range(3, ta_capacity[j][k[0]]):
+                            for d in range(2, ta_capacity[j][k[0]]):
                                 q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                 ind_of_group += 1
                 for i in q:
