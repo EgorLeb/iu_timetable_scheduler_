@@ -4,6 +4,7 @@ from src.class_hierarchy.Room import *
 from src.class_hierarchy.exception_classes.NoTeacherPreference import *
 from src.class_hierarchy.exception_classes.NotANumberProvided import *
 from src.class_hierarchy.exception_classes.NoSuchGroupExists import *
+from src.class_hierarchy.exception_classes.AlwaysNoAsPreference import *
 
 import pandas as pd
 from pathlib import Path
@@ -181,9 +182,15 @@ class InputParser:
         for row in self._input_file['Teacher Preferences'].values:
             teacher_name = row[0].strip()
             teacher = self._teachers[teacher_name]
+            counter = 0
             for index, day in enumerate(row):
                 if day == "yes":
                     teacher.get_preferences().append(weekdays[index - 1])
+                elif day == "no":
+                    counter += 1
+
+            if counter == 7:
+                raise AlwaysNoAsTeacherPreference(teacher_name)
 
         for lec in self._lectures.values():
             teacher = lec.get_teacher()
