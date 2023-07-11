@@ -182,13 +182,14 @@ def get_schedule():
                                 q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                 ind_of_group += 1
                 print(q)
+                print(week1)
                 for i in q:
                     for j in set(list(createEmptyWeek(sport_days, rooms))):
                         if len(i[1].get_preferences()) == 0 or j in i[1].get_preferences():
                             for k in range(2, len(week1[j])):
                                 flag = True
                                 for l in week1[j][k]:
-                                    if week1[j][k][l] is not None and i[2].get_name() in week1[j][k][l][2]:
+                                    if week1[j][k][l] is not None and (i[2].get_name() in week1[j][k][l][2] or week1[j][k][l][1] == i[1]._name):
                                         flag = False
                                 if flag:
                                     for l in week1[j][k]:
@@ -248,7 +249,7 @@ def get_schedule():
                             for k in range(2, len(week2[j])):
                                 flag = True
                                 for l in week2[j][k]:
-                                    if week2[j][k][l] is not None and i[2].get_name() in week2[j][k][l][2]:
+                                    if week2[j][k][l] is not None and (i[2].get_name() in week2[j][k][l][2] or week2[j][k][l][1] == i[1]._name):
                                         flag = False
                                 if flag:
                                     for l in week2[j][k]:
@@ -263,10 +264,6 @@ def get_schedule():
                             break
                     else:
                         print("Что-то не добавилось(")
-
-
-
-
 
                 break
             else:
