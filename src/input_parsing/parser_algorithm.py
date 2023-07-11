@@ -6,6 +6,7 @@ from src.class_hierarchy.exception_classes.NotANumberProvided import *
 from src.class_hierarchy.exception_classes.NoSuchGroupExists import *
 from src.class_hierarchy.exception_classes.AlwaysNoAsPreference import *
 from src.class_hierarchy.exception_classes.WrongSheetName import *
+from src.class_hierarchy.exception_classes.WrongFormatForSportReservation import *
 
 import pandas as pd
 from pathlib import Path
@@ -195,9 +196,11 @@ class InputParser:
         if tab_name not in self._input_file.keys():
             raise WrongSheetNameProvided(tab_name)
         for row in self._input_file[tab_name].values:
-            for index, day in enumerate(row):
+            for index, day in enumerate(row[1:]):
                 if day == "Yes":
                     self._sport_classes_days.append(weekdays[index - 1])
+                elif day != "No":
+                    raise WrongFormatForSportReservation(day)
 
         tab_name = 'Teacher Preferences'
         if tab_name not in self._input_file.keys():
