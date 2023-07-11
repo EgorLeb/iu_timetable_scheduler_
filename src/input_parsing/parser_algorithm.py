@@ -2,6 +2,7 @@ from src.class_hierarchy.CourseActivity import *
 from src.class_hierarchy.Group import *
 from src.class_hierarchy.Room import *
 from src.class_hierarchy.exception_classes.NoTeacherPreference import *
+from src.class_hierarchy.exception_classes.NotANumberProvided import *
 
 import pandas as pd
 from pathlib import Path
@@ -109,6 +110,9 @@ class InputParser:
                 row[4].strip(), \
                 row[5].strip()
 
+            if not str(study_year).isdigit():
+                raise NotANumberProvided("Courses", course_name)
+
             index = 0
             for teacher_name, activity_type in \
                     zip([prim_instructor, tut_instructor], ["Lecture", "Tutorial"]):
@@ -126,6 +130,10 @@ class InputParser:
 
         for row in self._input_file['Groups Info'].values:
             group_name, people_num = row[0].strip(), int(row[1])
+            if not str(people_num).isdigit():
+                raise NotANumberProvided("Groups Info",
+                                         f"Not a course, but group: {group_name}")
+
             self._groups[group_name] = Group(group_name, people_num)
 
         for row in self._input_file['Course-Groups'].values:
@@ -144,10 +152,17 @@ class InputParser:
 
             course_name = row[1].strip()
             capacity = row[2]
+            if not str(capacity).isdigit():
+                raise NotANumberProvided("TA-Course-Groups", course_name)
+
             self._ta_courses_capacity[self._teachers[teacher_name]][course_name] = capacity
 
-        for row in self._input_file['Rooms Info'].values:
+        for index, row in enumerate(self._input_file['Rooms Info'].values):
             room_number, capacity = row[0], row[1]
+            if not str(room_number).isdigit() or not str(capacity).isdigit():
+                raise NotANumberProvided("Rooms Info",
+                                         f"Not a course, but line: {index + 1}")
+
             self._rooms[room_number] = Room(room_number, capacity)
 
         weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -159,8 +174,7 @@ class InputParser:
 
         for row in self._input_file['Teacher Preferences'].values:
             teacher_name = row[0].strip()
-
-            teacher = self._teachers[row[0].strip()]
+            teacher = self._teachers[teacher_name]
             for index, day in enumerate(row):
                 if day == "yes":
                     teacher.get_preferences().append(weekdays[index - 1])
