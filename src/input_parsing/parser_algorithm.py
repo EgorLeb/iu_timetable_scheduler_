@@ -3,6 +3,7 @@ from src.class_hierarchy.Group import *
 from src.class_hierarchy.Room import *
 from src.class_hierarchy.exception_classes.NoTeacherPreference import *
 from src.class_hierarchy.exception_classes.NotANumberProvided import *
+from src.class_hierarchy.exception_classes.NoSuchGroupExists import *
 
 import pandas as pd
 from pathlib import Path
@@ -139,6 +140,11 @@ class InputParser:
         for row in self._input_file['Course-Groups'].values:
             course_name = row[0].strip()
             groups = row[1].strip().split(", ")
+
+            for group in groups:
+                if group not in self._groups.keys():
+                    raise NoSuchGroupExists(group, course_name)
+
             self._course_groups_dict[course_name] = groups
 
         for row in self._input_file['TA-Course-Groups'].values:
