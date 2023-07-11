@@ -28,7 +28,7 @@ def get_schedule():
 
     def getCourses(type):
         coursesOfYear = dict(
-            filter(lambda x: x[1]._study_year in (1, 2, 3, 4) and x[1].get_type() == type, courses.items()))
+            filter(lambda x: x[1].get_type() == type, courses.items()))
         info = []
         for i in coursesOfYear:
             info.append([i, course_groups[i]])
@@ -161,7 +161,7 @@ def get_schedule():
                         ind_free_room += 1
                         ind_of_group = 0
                         for j in k[2]:
-                            for d in range(min(3, ta_capacity[j][k[0]])):
+                            for d in range(min(2, ta_capacity[j][k[0]])):
                                 m = 100000
                                 minimum_room = ''
                                 for t in sort_rooms:
@@ -178,28 +178,29 @@ def get_schedule():
                                     q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                     if k[0] in coursesOfYearBlock1:
                                         q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
-                            for d in range(3, ta_capacity[j][k[0]]):
+                            for d in range(2, ta_capacity[j][k[0]]):
                                 q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                 ind_of_group += 1
                 print(q)
                 for i in q:
                     for j in set(list(createEmptyWeek(sport_days, rooms))):
-                        for k in range(2, len(week1[j])):
-                            flag = True
-                            for l in week1[j][k]:
-                                if week1[j][k][l] is not None and i[2].get_name() in week1[j][k][l][2]:
-                                    flag = False
-                            if flag:
+                        if len(i[1].get_preferences()) == 0 or j in i[1].get_preferences():
+                            for k in range(2, len(week1[j])):
+                                flag = True
                                 for l in week1[j][k]:
-                                    if week1[j][k][l] is None and rooms[l].room_capacity >= i[2].get_people_number():
-                                        week1[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name, [i[2].get_name()]]
-                                        break
-                                else:
-                                    continue
-                                break
-                        else:
-                            continue
-                        break
+                                    if week1[j][k][l] is not None and i[2].get_name() in week1[j][k][l][2]:
+                                        flag = False
+                                if flag:
+                                    for l in week1[j][k]:
+                                        if week1[j][k][l] is None and rooms[l].room_capacity >= i[2].get_people_number():
+                                            week1[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name, [i[2].get_name()]]
+                                            break
+                                    else:
+                                        continue
+                                    break
+                            else:
+                                continue
+                            break
                     else:
                         print("Что-то не добавилось(")
 
@@ -218,7 +219,7 @@ def get_schedule():
                         ind_free_room += 1
                         ind_of_group = 0
                         for j in k[2]:
-                            for d in range(min(3, ta_capacity[j][k[0]])):
+                            for d in range(min(2, ta_capacity[j][k[0]])):
                                 m = 100000
                                 minimum_room = ''
                                 any_room = ''
@@ -238,27 +239,28 @@ def get_schedule():
                                     q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                     if k[0] in coursesOfYearBlock2:
                                         q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
-                            for d in range(3, ta_capacity[j][k[0]]):
+                            for d in range(2, ta_capacity[j][k[0]]):
                                 q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                 ind_of_group += 1
                 for i in q:
                     for j in set(list(createEmptyWeek(sport_days, rooms))):
-                        for k in range(2, len(week2[j])):
-                            flag = True
-                            for l in week2[j][k]:
-                                if week2[j][k][l] is not None and i[2].get_name() in week2[j][k][l][2]:
-                                    flag = False
-                            if flag:
+                        if len(i[1].get_preferences()) == 0 or j in i[1].get_preferences():
+                            for k in range(2, len(week2[j])):
+                                flag = True
                                 for l in week2[j][k]:
-                                    if week2[j][k][l] is None and rooms[l].room_capacity >= i[2].get_people_number():
-                                        week2[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name, [i[2].get_name()]]
-                                        break
-                                else:
-                                    continue
-                                break
-                        else:
-                            continue
-                        break
+                                    if week2[j][k][l] is not None and i[2].get_name() in week2[j][k][l][2]:
+                                        flag = False
+                                if flag:
+                                    for l in week2[j][k]:
+                                        if week2[j][k][l] is None and rooms[l].room_capacity >= i[2].get_people_number():
+                                            week2[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name, [i[2].get_name()]]
+                                            break
+                                    else:
+                                        continue
+                                    break
+                            else:
+                                continue
+                            break
                     else:
                         print("Что-то не добавилось(")
 
