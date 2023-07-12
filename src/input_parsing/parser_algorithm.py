@@ -2,6 +2,13 @@ from src.class_hierarchy.CourseActivity import *
 from src.class_hierarchy.Group import *
 from src.class_hierarchy.Room import *
 from src.class_hierarchy.exception_classes.NoTeacherPreference import *
+from src.class_hierarchy.exception_classes.NotANumberProvided import *
+from src.class_hierarchy.exception_classes.NoSuchGroupExists import *
+from src.class_hierarchy.exception_classes.AlwaysNoAsPreference import *
+from src.class_hierarchy.exception_classes.WrongSheetName import *
+from src.class_hierarchy.exception_classes.WrongFormatForSportReservation import *
+from src.class_hierarchy.exception_classes.WrongCourseActivityFormat import *
+from src.class_hierarchy.exception_classes.WrongCourseActivityType import *
 
 import pandas as pd
 from pathlib import Path
@@ -101,13 +108,27 @@ class InputParser:
 
     def _parse(self):
         classes = [self._lectures, self._tutorials]
-        for row in self._input_file['Courses'].values:
+        tab_name = 'Courses'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for row in self._input_file[tab_name].values:
             course_name = row[0].strip()
             course_formats = row[1].strip().split("/")
+            for c_format in course_formats:
+                if c_format not in ["Offline", "Online", "-"]:
+                    raise WrongCourseActivityFormat(c_format, course_name)
+
             course_type, study_year, prim_instructor, tut_instructor = row[2].strip(), \
-                int(row[3]), \
+                row[3], \
                 row[4].strip(), \
                 row[5].strip()
+
+            if course_type not in ["Full", "Block 1", "Block 2"]:
+                raise WrongCourseActivityTypeException(course_type, course_name)
+
+            if not str(study_year).isdigit():
+                raise NotANumberProvided(tab_name, course_name)
+            study_year = int(study_year)
 
             index = 0
             for teacher_name, activity_type in \
@@ -124,16 +145,34 @@ class InputParser:
                                                                  activity_type)
                 index += 1
 
-        for row in self._input_file['Groups Info'].values:
-            group_name, people_num = row[0].strip(), int(row[1])
+        tab_name = 'Groups Info'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for row in self._input_file[tab_name].values:
+            group_name, people_num = row[0].strip(), row[1]
+            if not str(people_num).isdigit():
+                raise NotANumberProvided(tab_name,
+                                         f"Not a course, but group: {group_name}")
+            people_num = int(people_num)
             self._groups[group_name] = Group(group_name, people_num)
 
-        for row in self._input_file['Course-Groups'].values:
+        tab_name = 'Course-Groups'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for row in self._input_file[tab_name].values:
             course_name = row[0].strip()
             groups = row[1].strip().split(", ")
+
+            for group in groups:
+                if group not in self._groups.keys():
+                    raise NoSuchGroupExists(group, course_name)
+
             self._course_groups_dict[course_name] = groups
 
-        for row in self._input_file['TA-Course-Groups'].values:
+        tab_name = 'TA-Course-Groups'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for row in self._input_file[tab_name].values:
 
             teacher_name = row[0].strip()
             if teacher_name not in self._teachers.keys():
@@ -144,26 +183,49 @@ class InputParser:
 
             course_name = row[1].strip()
             capacity = row[2]
+            if not str(capacity).isdigit():
+                raise NotANumberProvided(tab_name, course_name)
+
             self._ta_courses_capacity[self._teachers[teacher_name]][course_name] = capacity
 
-        for row in self._input_file['Rooms Info'].values:
+        tab_name = 'Rooms Info'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for index, row in enumerate(self._input_file[tab_name].values):
             room_number, capacity = row[0], row[1]
+            if not str(room_number).isdigit() or not str(capacity).isdigit():
+                raise NotANumberProvided(tab_name,
+                                         f"Not a course, but line: {index + 2}")
+
             self._rooms[room_number] = Room(room_number, capacity)
 
         weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
-        for row in self._input_file['Sport Electives Reservations'].values:
-            for index, day in enumerate(row):
+        tab_name = 'Sport Electives Reservations'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for row in self._input_file[tab_name].values:
+            for index, day in enumerate(row[1:]):
                 if day == "Yes":
                     self._sport_classes_days.append(weekdays[index - 1])
+                elif day != "No":
+                    raise WrongFormatForSportReservation(day)
 
-        for row in self._input_file['Teacher Preferences'].values:
+        tab_name = 'Teacher Preferences'
+        if tab_name not in self._input_file.keys():
+            raise WrongSheetNameProvided(tab_name)
+        for row in self._input_file[tab_name].values:
             teacher_name = row[0].strip()
-
-            teacher = self._teachers[row[0].strip()]
+            teacher = self._teachers[teacher_name]
+            counter = 0
             for index, day in enumerate(row):
                 if day == "yes":
                     teacher.get_preferences().append(weekdays[index - 1])
+                elif day == "no":
+                    counter += 1
+
+            if counter == 7:
+                raise AlwaysNoAsTeacherPreference(teacher_name)
 
         for lec in self._lectures.values():
             teacher = lec.get_teacher()
