@@ -1,20 +1,26 @@
-from src.class_hierarchy.CourseActivity import *
-from src.class_hierarchy.Group import *
-from src.class_hierarchy.Room import *
-from src.class_hierarchy.exception_classes.NoTeacherPreference import *
-from src.class_hierarchy.exception_classes.NotANumberProvided import *
-from src.class_hierarchy.exception_classes.NoSuchGroupExists import *
-from src.class_hierarchy.exception_classes.AlwaysNoAsPreference import *
-from src.class_hierarchy.exception_classes.WrongSheetName import *
-from src.class_hierarchy.exception_classes.WrongFormatForSportReservation import *
-from src.class_hierarchy.exception_classes.WrongCourseActivityFormat import *
-from src.class_hierarchy.exception_classes.WrongCourseActivityType import *
-
-import pandas as pd
 from pathlib import Path
+import pandas as pd
+
+from src.class_hierarchy.course_activity import *
+from src.class_hierarchy.group import *
+from src.class_hierarchy.room import *
+from src.class_hierarchy.exception_classes.no_teacher_preference import *
+from src.class_hierarchy.exception_classes.not_a_number_provided import *
+from src.class_hierarchy.exception_classes.no_such_group_exists import *
+from src.class_hierarchy.exception_classes.always_no_as_preference import *
+from src.class_hierarchy.exception_classes.wrong_sheet_name import *
+from src.class_hierarchy.exception_classes.wrong_format_for_sport_reservation import *
+from src.class_hierarchy.exception_classes.wrong_course_activity_format import *
+from src.class_hierarchy.exception_classes.wrong_course_activity_type import *
 
 
 class InputParser:
+    """
+    InputParser is class, that performs deserialization from input file.
+    You only have to create new instance and then use data from input
+    using getters
+    """
+
     def __init__(self,
                  path_to_input=Path('../..').resolve() / 'input_data/Time_Table_Input.xlsx'):
         # initialize absolute path to the input file (/input_data/Time_Table_Input.xlsx)
@@ -23,90 +29,100 @@ class InputParser:
         self._input_file = pd.read_excel(path_to_input, sheet_name=None)
 
         # declare fields that will be obtained after parsing
-        """
-        dict of all teachers
-        key = teacher full name
-        value = Teacher object (/src/class_hierarchy/Teacher.py)
-        """
+
         self._teachers = {}
-        """
-        dict of all groups
-        key = group name
-        value = Group object (/src/class_hierarchy/Group.py)
-        """
         self._groups = {}
-        """
-        dict of all lectures
-        key = course name
-        value = CourseActivity object (/src/class_hierarchy/CourseActivity.py)
-        """
         self._lectures = {}
-        """
-        dict of all tutorials
-        key = course name
-        value = CourseActivity object (/src/class_hierarchy/CourseActivity.py)
-        """
         self._tutorials = {}
-
-        """
-        dict of all rooms in IU
-        key = room number
-        value = Room object (/src/class_hierarchy/Room.py)
-        """
         self._rooms = {}
-        """
-        list of all week days where Elective courses on Physical Education are reserved
-        example: ["Mon", "Tue"]
-        """
         self._sport_classes_days = []
-
-        """
-        NEW CHANGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        
-        dict to store info about course and its groups to teach
-        key = string name of the course
-        value = list of names of groups that are going to be taught during this course
-        """
         self._course_groups_dict = {}
-
-        """
-        NEW CHANGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        
-        key = class of Teacher = TA
-            value = nested dict with following:
-                key = course name
-                value = capacity
-        """
         self._ta_courses_capacity = {}
 
         # execute parsing algorithm to read and initialize data
         self._parse()
 
-    def get_lectures(self):
+    def get_lectures(self) -> dict:
+        """
+        :return:
+            dict of all lectures
+            key = course name
+            value = CourseActivity object (/src/class_hierarchy/CourseActivity.py)
+        """
         return self._lectures
 
-    def get_tutorials(self):
+    def get_tutorials(self) -> dict:
+        """
+        :return:
+            dict of all tutorials
+            key = course name
+            value = CourseActivity object (/src/class_hierarchy/CourseActivity.py)
+        """
         return self._tutorials
 
-    def get_groups(self):
+    def get_groups(self) -> dict:
+        """
+        :return:
+            dict of all groups
+            key = group name
+            value = Group object (/src/class_hierarchy/Group.py)
+        """
         return self._groups
 
-    def get_teachers(self):
+    def get_teachers(self) -> dict:
+        """
+        :return:
+            dict of all teachers
+            key = teacher full name
+            value = Teacher object (/src/class_hierarchy/Teacher.py)
+        """
         return self._teachers
 
-    def get_rooms(self):
+    def get_rooms(self) -> dict:
+        """
+        :return:
+            dict of all rooms in IU
+            key = room number
+            value = Room object (/src/class_hierarchy/Room.py)
+        """
         return self._rooms
 
-    def get_sport_days(self):
+    def get_sport_days(self) -> list:
+        """
+        :return:
+            list of all week days when
+            Elective courses on Physical
+            Education are reserved
+            example: ["Mon", "Tue"]
+        """
         return self._sport_classes_days
 
     def get_ta_courses_capacity(self) -> dict:
+        """
+        :return:
+            key = class of Teacher = TA
+            value = nested dict with following:
+                key = course name
+                value = capacity
+        """
         return self._ta_courses_capacity
 
     def get_course_groups_dict(self) -> dict:
+        """
+        :return:
+            dict to store info about course and its groups to teach
+            key = string name of the course
+            value = list of names of groups that
+                    are going to be taught during
+                    this course
+        """
         return self._course_groups_dict
 
     def _parse(self):
+        """
+        Doing parse of input
+        :return: nothing
+        """
         classes = [self._lectures, self._tutorials]
         tab_name = 'Courses'
         if tab_name not in self._input_file.keys():

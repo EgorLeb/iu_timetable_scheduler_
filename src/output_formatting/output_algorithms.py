@@ -20,7 +20,8 @@ def parametrized(week):
                 instructor = slot[1]
                 groups_list = slot[2]
                 for group_name in groups_list:
-                    result[(weekday, class_number, group_name)] = (room_number, class_name, instructor)
+                    result[(weekday, class_number, group_name)] = \
+                        (room_number, class_name, instructor)
     return result
 
 
@@ -44,67 +45,119 @@ def create_xlsx(block1, block2, groups):
 
         # denoting groups and weekdays
         for column_number, group in enumerate(sorted(year_groups, key=augmented), 2):
-            year_sheet_block1.cell(row=1, column=column_number, value=group)
-            year_sheet_block2.cell(row=1, column=column_number, value=group)
-            total_block1.cell(row=1, column=column_number + rest_width_offset, value=group)
-            total_block2.cell(row=1, column=column_number + rest_width_offset, value=group)
+            year_sheet_block1.cell(row=1,
+                                   column=column_number,
+                                   value=group)
+            year_sheet_block2.cell(row=1,
+                                   column=column_number,
+                                   value=group)
+            total_block1.cell(row=1,
+                              column=column_number + rest_width_offset,
+                              value=group)
+            total_block2.cell(row=1,
+                              column=column_number + rest_width_offset,
+                              value=group)
         for weekday in WEEKDAYS:
-            year_sheet_block1.cell(row=get_row_offset(weekday, 0), column=1, value=weekday)
-            year_sheet_block2.cell(row=get_row_offset(weekday, 0), column=1, value=weekday)
-            total_block1.cell(row=get_row_offset(weekday, 0), column=1, value=weekday)
-            total_block2.cell(row=get_row_offset(weekday, 0), column=1, value=weekday)
+            year_sheet_block1.cell(row=get_row_offset(weekday, 0),
+                                   column=1,
+                                   value=weekday)
+            year_sheet_block2.cell(row=get_row_offset(weekday, 0),
+                                   column=1,
+                                   value=weekday)
+            total_block1.cell(row=get_row_offset(weekday, 0),
+                              column=1,
+                              value=weekday)
+            total_block2.cell(row=get_row_offset(weekday, 0),
+                              column=1,
+                              value=weekday)
             for class_number in range(0, 6):
-                year_sheet_block1.cell(row=get_row_offset(weekday, class_number) + 1, column=1,
+                year_sheet_block1.cell(row=get_row_offset(weekday, class_number) + 1,
+                                       column=1,
                                        value=PERIODS[class_number])
-                year_sheet_block2.cell(row=get_row_offset(weekday, class_number) + 1, column=1,
+                year_sheet_block2.cell(row=get_row_offset(weekday, class_number) + 1,
+                                       column=1,
                                        value=PERIODS[class_number])
-                total_block1.cell(row=get_row_offset(weekday, class_number) + 1, column=1+rest_width_offset,
+                total_block1.cell(row=get_row_offset(weekday, class_number) + 1,
+                                  column=1 + rest_width_offset,
                                   value=PERIODS[class_number])
-                total_block2.cell(row=get_row_offset(weekday, class_number) + 1, column=1+rest_width_offset,
+                total_block2.cell(row=get_row_offset(weekday, class_number) + 1,
+                                  column=1 + rest_width_offset,
                                   value=PERIODS[class_number])
 
         for slot in entries_block1:
             weekday = slot[0]
             class_number = slot[1]
-            column_number = sorted(year_groups, key=augmented).index(slot[2]) + 2
+            column_number = sorted(year_groups, key=augmented) \
+                                .index(slot[2]) + 2
             row_number = get_row_offset(weekday, class_number)
 
             room_number = block1[slot][0]
-            year_sheet_block1.cell(row=row_number + 3, column=column_number, value=room_number)
-            total_block1.cell(row=row_number + 3, column=column_number+rest_width_offset, value=room_number)
+            year_sheet_block1.cell(row=row_number + 3,
+                                   column=column_number,
+                                   value=room_number)
+            total_block1.cell(row=row_number + 3,
+                              column=column_number + rest_width_offset,
+                              value=room_number)
 
             class_name = block1[slot][1]
-            year_sheet_block1.cell(row=row_number + 1, column=column_number, value=class_name)
-            total_block1.cell(row=row_number + 1, column=column_number+rest_width_offset, value=class_name)
+            year_sheet_block1.cell(row=row_number + 1,
+                                   column=column_number,
+                                   value=class_name)
+            total_block1.cell(row=row_number + 1,
+                              column=column_number + rest_width_offset,
+                              value=class_name)
 
             instructor = block1[slot][2]
-            year_sheet_block1.cell(row=row_number + 2, column=column_number, value=instructor)
-            total_block1.cell(row=row_number + 2, column=column_number+rest_width_offset, value=instructor)
+            year_sheet_block1.cell(row=row_number + 2,
+                                   column=column_number,
+                                   value=instructor)
+            total_block1.cell(row=row_number + 2,
+                              column=column_number + rest_width_offset,
+                              value=instructor)
 
         for slot in entries_block2:
             weekday = slot[0]
             class_number = slot[1]
-            column_number = sorted(year_groups, key=augmented).index(slot[2]) + 2
+            column_number = sorted(year_groups,
+                                   key=augmented).index(slot[2]) + 2
             row_number = get_row_offset(weekday, class_number)
 
             room_number = block2[slot][0]
-            year_sheet_block2.cell(row=row_number + 3, column=column_number, value=room_number)
-            total_block2.cell(row=row_number + 3, column=column_number+rest_width_offset, value=room_number)
+            year_sheet_block2.cell(row=row_number + 3,
+                                   column=column_number,
+                                   value=room_number)
+            total_block2.cell(row=row_number + 3,
+                              column=column_number + rest_width_offset,
+                              value=room_number)
 
             class_name = block2[slot][1]
-            year_sheet_block2.cell(row=row_number + 1, column=column_number, value=class_name)
-            total_block2.cell(row=row_number + 1, column=column_number+rest_width_offset, value=class_name)
+            year_sheet_block2.cell(row=row_number + 1,
+                                   column=column_number,
+                                   value=class_name)
+            total_block2.cell(row=row_number + 1,
+                              column=column_number + rest_width_offset,
+                              value=class_name)
 
             instructor = block2[slot][2]
-            year_sheet_block2.cell(row=row_number + 2, column=column_number, value=instructor)
-            total_block2.cell(row=row_number + 2, column=column_number+rest_width_offset, value=instructor)
+            year_sheet_block2.cell(row=row_number + 2,
+                                   column=column_number,
+                                   value=instructor)
+            total_block2.cell(row=row_number + 2,
+                              column=column_number + rest_width_offset,
+                              value=instructor)
 
         rest_width_offset += len(year_groups) + 1
 
-        prettify(total_block1, rest_width_offset - 1, rest_width_offset - len(year_groups) - 1)
-        prettify(total_block2, rest_width_offset - 1, rest_width_offset - len(year_groups) - 1)
-        prettify(year_sheet_block1, len(year_groups))
-        prettify(year_sheet_block2, len(year_groups))
+        prettify(total_block1,
+                 rest_width_offset - 1,
+                 rest_width_offset - len(year_groups) - 1)
+        prettify(total_block2,
+                 rest_width_offset - 1,
+                 rest_width_offset - len(year_groups) - 1)
+        prettify(year_sheet_block1,
+                 len(year_groups))
+        prettify(year_sheet_block2,
+                 len(year_groups))
 
     wb.save("schedule.xlsx")
 
@@ -116,9 +169,11 @@ def get_row_offset(weekday, class_number):
 
 def prettify(sheet, number_of_groups, class_period_column=0):
     # formatting the whole table
-    alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-    for column in range(1+number_of_groups):
-        letter = get_column_letter(column+1)
+    alignment = Alignment(horizontal="center",
+                          vertical="center",
+                          wrap_text=True)
+    for column in range(1 + number_of_groups):
+        letter = get_column_letter(column + 1)
         sheet.column_dimensions[letter].auto_size = True
         sheet.column_dimensions[letter].width += 1
         for row in range(1, get_row_offset("Sun", 6) + 4):
@@ -130,7 +185,9 @@ def prettify(sheet, number_of_groups, class_period_column=0):
                     right=Side(border_style="thin", color='FF000000'),
                     top=Side(border_style="thin", color='FF000000'),
                     bottom=Side(border_style="thin", color='FF000000'))
-    fill = PatternFill(fill_type="darkGrid", start_color="00AA00", end_color="00AA00")
+    fill = PatternFill(fill_type="darkGrid",
+                       start_color="00AA00",
+                       end_color="00AA00")
     for column in range(1 + number_of_groups):
         letter = get_column_letter(column + 1)
         sheet[letter + "1"].font = font
@@ -141,7 +198,9 @@ def prettify(sheet, number_of_groups, class_period_column=0):
     font = Font(bold=True)
     border = Border(top=Side(border_style="thin", color='FF000000'),
                     bottom=Side(border_style="thin", color='FF000000'))
-    fill = PatternFill(fill_type="solid", start_color="22FF22", end_color="22FF22")
+    fill = PatternFill(fill_type="solid",
+                       start_color="22FF22",
+                       end_color="22FF22")
     for weekday in WEEKDAYS:
         row = str(get_row_offset(weekday, 0))
         for column in range(1 + number_of_groups):
@@ -151,13 +210,19 @@ def prettify(sheet, number_of_groups, class_period_column=0):
             sheet[letter + row].border = border
 
     # formatting class periods
-    letter = get_column_letter(1+class_period_column)
+    letter = get_column_letter(1 + class_period_column)
     sheet.column_dimensions[letter].width = 12
-    border = Border(left=Side(border_style="thin", color='FF000000'),
-                    right=Side(border_style="thin", color='FF000000'),
-                    top=Side(border_style="thin", color='FF000000'),
-                    bottom=Side(border_style="thin", color='FF000000'))
-    fill = PatternFill(fill_type="darkGrid", start_color="CCFFCC", end_color="CCFFCC")
+    border = Border(left=Side(border_style="thin",
+                              color='FF000000'),
+                    right=Side(border_style="thin",
+                               color='FF000000'),
+                    top=Side(border_style="thin",
+                             color='FF000000'),
+                    bottom=Side(border_style="thin",
+                                color='FF000000'))
+    fill = PatternFill(fill_type="darkGrid",
+                       start_color="CCFFCC",
+                       end_color="CCFFCC")
     for weekday in WEEKDAYS:
         for class_number in range(0, 6):
             start_merge_row = get_row_offset(weekday, class_number) + 1
@@ -186,22 +251,30 @@ def prettify(sheet, number_of_groups, class_period_column=0):
         for column in range(2, 2 + number_of_groups):
             if column == 2:
                 start_column = 2
-                current_value = sheet.cell(row=row_number, column=column).value
+                current_value = sheet.cell(row=row_number,
+                                           column=column).value
                 current_value = str(current_value).strip()
                 continue
-            if (current_value == str(sheet.cell(row=row_number, column=column).value).strip() and
+            if (current_value == str(sheet.cell(row=row_number,
+                                                column=column).value).strip() and
                     (current_value != "None")):
                 if column == number_of_groups + 1:
-                    sheet.merge_cells(start_column=start_column, end_column=column,
-                                      start_row=row_number, end_row=row_number)
+                    sheet.merge_cells(start_column=start_column,
+                                      end_column=column,
+                                      start_row=row_number,
+                                      end_row=row_number)
                 continue
-            elif (current_value == str(sheet.cell(row=row_number, column=column).value).strip() and
+            elif (current_value ==
+                  str(sheet.cell(row=row_number, column=column).value).strip() and
                   (current_value == "None")):
                 start_column = column
             else:
                 if start_column != column - 1:
-                    sheet.merge_cells(start_column=start_column, end_column=column - 1,
-                                      start_row=row_number, end_row=row_number)
+                    sheet.merge_cells(start_column=start_column,
+                                      end_column=column - 1,
+                                      start_row=row_number,
+                                      end_row=row_number)
                 start_column = column
-                current_value = sheet.cell(row=row_number, column=column).value
+                current_value = sheet.cell(row=row_number,
+                                           column=column).value
                 current_value = str(current_value).strip()
