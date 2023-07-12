@@ -1,8 +1,10 @@
-from src.class_hierarchy.exception_classes.WrongCourseActivityType import WrongCourseActivityTypeException
-from src.class_hierarchy.Teacher import Teacher
+from src.class_hierarchy.teacher import Teacher
 
 
 class CourseActivity:
+    """
+    Data Container. To store Lecture/Tutorial
+    """
     def __init__(self,
                  course_name: str,
                  course_type: str,
@@ -24,9 +26,6 @@ class CourseActivity:
         self._study_year = study_year
         self._study_format = study_format
         self._teacher = teacher
-
-        if activity_type != "Lecture" and activity_type != "Tutorial" and activity_type != "Lab":
-            raise WrongCourseActivityTypeException(activity_type)
         self._activity_type = activity_type
         self._study_groups = None
 
@@ -43,5 +42,7 @@ class CourseActivity:
         return self._study_year
 
     def __str__(self) -> str:
-        return f"{self._course_name}/{self._study_format}/{self._course_type}/{self._study_year}"
-
+        return f"{self._course_name}" \
+               f"/{self._study_format}" \
+               f"/{self._course_type}" \
+               f"/{self._study_year}"

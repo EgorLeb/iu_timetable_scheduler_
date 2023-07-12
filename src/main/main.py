@@ -203,7 +203,7 @@ def get_schedule():
                                 continue
                             break
                     else:
-                        print("Что-то не добавилось(")
+                        print("Something was not added :(")
 
 
                 q = []
@@ -263,7 +263,7 @@ def get_schedule():
                                 continue
                             break
                     else:
-                        print("Что-то не добавилось(")
+                        print("Something was not added :(")
 
                 break
             else:
@@ -273,7 +273,7 @@ def get_schedule():
             continue
         break
     else:
-        print("Я не смог составить рассписание")
+        print("Unfortunately, I was not be able to generate schedule")
 
     for i in sport_days:
         week2[i].insert(0, {'Sport Complex': ["Sport", "Electives", list(groups)]})
