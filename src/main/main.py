@@ -203,7 +203,7 @@ def get_schedule():
                                 continue
                             break
                     else:
-                        print("Something was not added :(")
+                        print("Что-то не добавилось(")
 
 
                 q = []
@@ -263,7 +263,7 @@ def get_schedule():
                                 continue
                             break
                     else:
-                        print("Something was not added :(")
+                        print("Что-то не добавилось(")
 
                 break
             else:
@@ -273,12 +273,13 @@ def get_schedule():
             continue
         break
     else:
-        print("Unfortunately, I was not be able to generate schedule")
+        print("Я не смог составить рассписание")
 
     for i in sport_days:
-        week2[i].insert(0, {'Sport Complex': ["Sport", "Electives", list(groups)]})
+        week2[i].insert(0, {'Sport Complex': ["Sport", "Electives", [x for x in groups if "B" in x]]})
     for i in sport_days:
-        week1[i].insert(0, {'Sport Complex': ["Sport", "Electives", list(groups)]})
+        week1[i].insert(0, {'Sport Complex': ["Sport", "Electives", [x for x in groups if "B" in x]]})
+    print(groups)
     # printDict(week1)
     # printDict(week2)
     return week1, week2, tuple(x for x in groups)
