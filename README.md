@@ -6,7 +6,7 @@ The IU Time Table Scheduler is an efficient tool designed to automate the schedu
 
 ## Demo
 <p align="center">
-  <img src="pics/demo.gif" alt="IU_Timetable_Scheduler Demo" width="600">
+  <img src="pics/demo.gif" alt="IU_Timetable_Scheduler Demo" width="900">
 </p>
 
 ![IU_Timetable_Scheduler Demo](pics/demo.gif)
