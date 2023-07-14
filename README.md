@@ -33,6 +33,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
         <img src="pics/courses.png" alt="Courses" width="760">
       </p>
 
+
      * **"Course-Groups" Sheet**:
      
        This sheet lists the study groups associated with each course and consists of two columns:
@@ -42,6 +43,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
       <p align="center">
         <img src="pics/course-group.png" alt="Course-groups" width="760">
       </p>
+
 
      * **"TA-Course-Groups" Sheet**:
      
@@ -53,6 +55,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
       <p align="center">
         <img src="pics/ta-cources.png" alt="tas" width="760">
       </p>
+
 
      * **"Teacher Preferences" Sheet**:
      
@@ -70,6 +73,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
         <img src="pics/preferences.png" alt="preferences" width="530">
       </p>
 
+
      * **"Rooms Info" Sheet**:
      
        This sheet provides details about the available rooms and their capacities. It consists of two columns:
@@ -77,8 +81,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Room Capacity
 
        <p align="center">
-        <img src="pics/rooms.png" alt="rooms" width="440">
+        <img src="pics/rooms.png" alt="rooms" width="350">
       </p>
+
 
      * **"Groups Info" Sheet**:
      
@@ -87,8 +92,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Number of People in Group
 
        <p align="center">
-        <img src="pics/groups.png" alt="groups" width="440">
+        <img src="pics/groups.png" alt="groups" width="350">
       </p>
+
 
      * **"Sport Electives Reservations" Sheet**:
      
@@ -105,6 +111,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        <p align="center">
         <img src="pics/sport.png" alt="sport" width="530">
       </p>
+      
 
 ### 2. Fill in the Required Information:
 
