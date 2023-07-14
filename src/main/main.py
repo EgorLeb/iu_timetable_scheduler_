@@ -63,6 +63,8 @@ def get_schedule():
         "Sun": []
     }
 
+    ind_of_online = 1
+
     def createBlock(ind, info, coursesOfYear, week_busy):
         nonlocal sport_days
         if ind == len(info):
@@ -141,12 +143,7 @@ def get_schedule():
         B2 = createBlock(0, infoBlock2, dict(list(coursesOfYearBlock2.items()) + list(coursesOfYearG.items())),
                          week_busy_save)
         for b1 in B1:
-            # print(b1)
-
             for b2 in B2:
-
-                # print(b1)
-                # print(b2)
                 q = []
                 for i in b1:
                     week_busy = b1
@@ -154,47 +151,77 @@ def get_schedule():
                     a = week_busy[i]
                     a.sort(key=lambda x: len(x[1]), reverse=True)
                     for k in a:
-                        week1[i][0][sort_rooms[ind_free_room]] = [k[0] + ' (lec)', courses[k[0]]._teacher._name, k[1]]
-                        if k[0] in tutors:
-                            week1[i][1][sort_rooms[ind_free_room]] = [k[0] + ' (tut)', tutors[k[0]]._teacher._name,
+                        if courses[k[0]]._study_format == "Offline":
+                            week1[i][0][sort_rooms[ind_free_room]] = [k[0] + ' (lec)', courses[k[0]]._teacher._name,
                                                                       k[1]]
-                        ind_free_room += 1
-                        ind_of_group = 0
-                        for j in k[2]:
-                            for d in range(min(2, ta_capacity[j][k[0]])):
-                                m = 100000
-                                minimum_room = ''
-                                for t in sort_rooms:
-                                    if week1[i][2 + d][t] is None and \
-                                            m > rooms[t].room_capacity >= groups[k[1][ind_of_group]]._people_number:
-                                        m = rooms[t].room_capacity
-                                        minimum_room = t
-                                if minimum_room != '':
-                                    week1[i][2 + d][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
+                            if k[0] in tutors:
+                                week1[i][1][sort_rooms[ind_free_room]] = [k[0] + ' (tut)', tutors[k[0]]._teacher._name,
+                                                                          k[1]]
+                            ind_free_room += 1
+                            ind_of_group = 0
+                            for j in k[2]:
+                                for d in range(min(2, ta_capacity[j][k[0]])):
+                                    m = 100000
+                                    minimum_room = ''
+                                    for t in sort_rooms:
+                                        if week1[i][2 + d][t] is None and \
+                                                m > rooms[t].room_capacity >= groups[k[1][ind_of_group]]._people_number:
+                                            m = rooms[t].room_capacity
+                                            minimum_room = t
+                                    if minimum_room != '':
+                                        week1[i][2 + d][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
+                                        if k[0] in coursesOfYearBlock1:
+                                            q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                                        ind_of_group += 1
+                                    else:
+                                        q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                                        if k[0] in coursesOfYearBlock1:
+                                            q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                                for d in range(2, ta_capacity[j][k[0]]):
+                                    q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                                    ind_of_group += 1
+                        else:
+                            week1[i][0][f"online {ind_of_online}"] = [k[0] + ' (lec)', courses[k[0]]._teacher._name,
+                                                                      k[1]]
+                            ind_of_online += 1
+                            if k[0] in tutors:
+                                week1[i][1][f"online {ind_of_online}"] = [k[0] + ' (tut)', tutors[k[0]]._teacher._name,
+                                                                          k[1]]
+                                ind_of_online += 1
+                            ind_free_room += 1
+                            ind_of_group = 0
+                            for j in k[2]:
+                                for d in range(min(2, ta_capacity[j][k[0]])):
+                                    week1[i][2 + d][f"online {ind_of_online}"] = [k[0] + ' (lab)', j._name,
+                                                                                  [k[1][ind_of_group]]]
+                                    ind_of_online += 1
                                     if k[0] in coursesOfYearBlock1:
                                         q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                     ind_of_group += 1
-                                else:
+                                for d in range(2, ta_capacity[j][k[0]]):
                                     q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
-                                    if k[0] in coursesOfYearBlock1:
-                                        q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
-                            for d in range(2, ta_capacity[j][k[0]]):
-                                q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
-                                ind_of_group += 1
-                print(q)
-                print(week1)
+                                    ind_of_group += 1
                 for i in q:
-                    for j in set(list(createEmptyWeek(sport_days, rooms))):
+                    for j in set(list(createEmptyWeek(sport_days, rooms))) - {"Sun"}:
                         if len(i[1].get_preferences()) == 0 or j in i[1].get_preferences():
                             for k in range(2, len(week1[j])):
                                 flag = True
                                 for l in week1[j][k]:
-                                    if week1[j][k][l] is not None and (i[2].get_name() in week1[j][k][l][2] or week1[j][k][l][1] == i[1]._name):
+                                    if week1[j][k][l] is not None and (
+                                            i[2].get_name() in week1[j][k][l][2] or week1[j][k][l][1] == i[1]._name):
                                         flag = False
                                 if flag:
                                     for l in week1[j][k]:
-                                        if week1[j][k][l] is None and rooms[l].room_capacity >= i[2].get_people_number():
-                                            week1[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name, [i[2].get_name()]]
+                                        if week1[j][k][l] is None and rooms[l].room_capacity >= i[
+                                            2].get_people_number():
+                                            if i[0]._study_format == "Offline":
+                                                week1[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name,
+                                                                  [i[2].get_name()]]
+                                            else:
+                                                week1[j][k][f"online {ind_of_online}"] = [i[0]._course_name + ' (lab)',
+                                                                                          i[1]._name,
+                                                                                          [i[2].get_name()]]
+                                                ind_of_online += 1
                                             break
                                     else:
                                         continue
@@ -205,7 +232,6 @@ def get_schedule():
                     else:
                         print("Что-то не добавилось(")
 
-
                 q = []
                 for i in b2:
                     week_busy = b2
@@ -213,48 +239,74 @@ def get_schedule():
                     a = week_busy[i]
                     a.sort(key=lambda x: len(x[1]), reverse=True)
                     for k in a:
-                        week2[i][0][sort_rooms[ind_free_room]] = [k[0] + ' (lec)', courses[k[0]]._teacher._name, k[1]]
-                        if k[0] in tutors:
-                            week2[i][1][sort_rooms[ind_free_room]] = [k[0] + ' (tut)', tutors[k[0]]._teacher._name,
+                        if courses[k[0]]._study_format == "Offline":
+                            week2[i][0][sort_rooms[ind_free_room]] = [k[0] + ' (lec)', courses[k[0]]._teacher._name, k[1]]
+                            if k[0] in tutors:
+                                week2[i][1][sort_rooms[ind_free_room]] = [k[0] + ' (tut)', tutors[k[0]]._teacher._name,
+                                                                          k[1]]
+                            ind_free_room += 1
+                            ind_of_group = 0
+                            for j in k[2]:
+                                for d in range(min(2, ta_capacity[j][k[0]])):
+                                    m = 100000
+                                    minimum_room = ''
+                                    for t in sort_rooms:
+                                        if week2[i][2 + d][t] is None and m > rooms[t].room_capacity >= groups[
+                                            k[1][ind_of_group]]._people_number:
+                                            m = rooms[t].room_capacity
+                                            minimum_room = t
+                                    if minimum_room != '':
+                                        week2[i][2 + d][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
+                                        if k[0] in coursesOfYearBlock2:
+                                            q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                                        ind_of_group += 1
+                                    else:
+                                        q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                                        if k[0] in coursesOfYearBlock2:
+                                            q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                                for d in range(2, ta_capacity[j][k[0]]):
+                                    q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
+                                    ind_of_group += 1
+                        else:
+                            week2[i][0][f"online {ind_of_online}"] = [k[0] + ' (lec)', courses[k[0]]._teacher._name,
                                                                       k[1]]
-                        ind_free_room += 1
-                        ind_of_group = 0
-                        for j in k[2]:
-                            for d in range(min(2, ta_capacity[j][k[0]])):
-                                m = 100000
-                                minimum_room = ''
-                                any_room = ''
-                                for t in sort_rooms:
-                                    if week2[i][2 + d][t] is None and m > rooms[t].room_capacity >= groups[
-                                        k[1][ind_of_group]]._people_number:
-                                        m = rooms[t].room_capacity
-                                        minimum_room = t
-                                    if week2[i][2 + d][t] is None:
-                                        any_room = t
-                                if minimum_room != '':
-                                    week2[i][2 + d][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
+                            ind_of_online += 1
+                            if k[0] in tutors:
+                                week2[i][1][f"online {ind_of_online}"] = [k[0] + ' (tut)', tutors[k[0]]._teacher._name,
+                                                                          k[1]]
+                                ind_of_online += 1
+                            ind_free_room += 1
+                            ind_of_group = 0
+                            for j in k[2]:
+                                for d in range(min(2, ta_capacity[j][k[0]])):
+                                    week2[i][2 + d][f"online {ind_of_online}"] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
+                                    ind_of_online += 1
                                     if k[0] in coursesOfYearBlock2:
                                         q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                     ind_of_group += 1
-                                else:
+                                for d in range(2, ta_capacity[j][k[0]]):
                                     q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
-                                    if k[0] in coursesOfYearBlock2:
-                                        q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
-                            for d in range(2, ta_capacity[j][k[0]]):
-                                q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
-                                ind_of_group += 1
+                                    ind_of_group += 1
                 for i in q:
-                    for j in set(list(createEmptyWeek(sport_days, rooms))):
+                    for j in set(list(createEmptyWeek(sport_days, rooms))) - {"Sun"}:
                         if len(i[1].get_preferences()) == 0 or j in i[1].get_preferences():
                             for k in range(2, len(week2[j])):
                                 flag = True
                                 for l in week2[j][k]:
-                                    if week2[j][k][l] is not None and (i[2].get_name() in week2[j][k][l][2] or week2[j][k][l][1] == i[1]._name):
+                                    if week2[j][k][l] is not None and (
+                                            i[2].get_name() in week2[j][k][l][2] or week2[j][k][l][1] == i[1]._name):
                                         flag = False
                                 if flag:
                                     for l in week2[j][k]:
-                                        if week2[j][k][l] is None and rooms[l].room_capacity >= i[2].get_people_number():
-                                            week2[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name, [i[2].get_name()]]
+                                        if week2[j][k][l] is None and rooms[l].room_capacity >= i[
+                                            2].get_people_number():
+                                            if i[0]._study_format == "Offline":
+                                                week2[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name,
+                                                                  [i[2].get_name()]]
+                                            else:
+                                                week2[j][k][f"online {ind_of_online}"] = [i[0]._course_name + ' (lab)', i[1]._name,
+                                                                  [i[2].get_name()]]
+                                                ind_of_online += 1
                                             break
                                     else:
                                         continue
