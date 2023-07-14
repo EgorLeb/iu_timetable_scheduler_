@@ -165,6 +165,10 @@ The application provides easy manual refinement of the generated schedule. If th
 
 ## For Customer
 
+you can bring up the server yourself.
+
+server is written in Flask, JS, html. 
+
 
 ## Acknowledgments
 We would like to express our gratitude to the contributors and supporters of the IU Time Table Scheduler project. Your valuable input and feedback have helped shape and improve this application. Thank you for your dedication and contributions.
