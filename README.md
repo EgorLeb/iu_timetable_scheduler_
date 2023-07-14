@@ -8,8 +8,6 @@ The IU Time Table Scheduler is a project aimed at automating the process of crea
 
 ## How To Use
 
-## How to Use
-
 To utilize our product, follow the steps below to ensure proper usage with a completed input file in .xlsx format. The input file must adhere to the mandatory requirements outlined in this section.
 
 1. **Prepare the Input File:**
@@ -17,64 +15,64 @@ To utilize our product, follow the steps below to ensure proper usage with a com
    - Create an input file in .xlsx format.
    - Ensure that the file includes the following sheets with their respective columns and data:
 
-     - **"Courses" Sheet**:
+     * **"Courses" Sheet**:
      
        This sheet contains information about the courses and consists of six columns:
-       - Course Name
-       - Lecture/Tutorial Format (Online/Offline)
-       - Course Type (Full, Block 1, or Block 2)
-       - Course Year
-       - Primary Instructor Name (required field)
-       - Tutorial Instructor Name (can be written as "-")
+       * Course Name
+       * Lecture/Tutorial Format (Online/Offline)
+       * Course Type (Full, Block 1, or Block 2)
+       * Course Year
+       * Primary Instructor Name (required field)
+       * Tutorial Instructor Name (can be written as "-")
 
-     - **"Course-Groups" Sheet**:
+     * **"Course-Groups" Sheet**:
      
        This sheet lists the study groups associated with each course and consists of two columns:
-       - Course Name (must match the corresponding course name in the "Courses" sheet)
-       - Study Groups (listed separated by commas)
+       * Course Name (must match the corresponding course name in the "Courses" sheet)
+       * Study Groups (listed separated by commas)
 
-     - **"TA-Course-Groups" Sheet**:
+     * **"TA-Course-Groups" Sheet**:
      
        This sheet provides information about Teaching Assistants (TAs) and their assigned courses. It consists of three columns:
-       - TA Name
-       - Course Name
-       - Number of Groups the TA can take on
+       * TA Name
+       * Course Name
+       * Number of Groups the TA can take on
 
-     - **"Teacher Preferences" Sheet**:
+     * **"Teacher Preferences" Sheet**:
      
        This sheet captures the preferences of teachers regarding the days they can teach. It consists of eight columns:
-       - Teacher Name
-       - Monday Availability (enter "yes" if available, "no" otherwise)
-       - Tuesday Availability
-       - Wednesday Availability
-       - Thursday Availability
-       - Friday Availability
-       - Saturday Availability
-       - Sunday Availability
+       * Teacher Name
+       * Monday Availability (enter "yes" if available, "no" otherwise)
+       * Tuesday Availability
+       * Wednesday Availability
+       * Thursday Availability
+       * Friday Availability
+       * Saturday Availability
+       * Sunday Availability
 
-     - **"Rooms Info" Sheet**:
+     * **"Rooms Info" Sheet**:
      
        This sheet provides details about the available rooms and their capacities. It consists of two columns:
-       - Room Number
-       - Room Capacity
+       * Room Number
+       * Room Capacity
 
-     - **"Groups Info" Sheet**:
+     * **"Groups Info" Sheet**:
      
        This sheet contains information about the study groups and their sizes. It consists of two columns:
-       - Group Name
-       - Number of People in Group
+       * Group Name
+       * Number of People in Group
 
-     - **"Sport Electives Reservations" Sheet**:
+     * **"Sport Electives Reservations" Sheet**:
      
        This sheet allows for the reservation of specific days for sport electives. It consists of eight columns:
-       - Class # / Weekday
-       - Monday Reservation (enter "yes" if reserved, "no" otherwise)
-       - Tuesday Reservation
-       - Wednesday Reservation
-       - Thursday Reservation
-       - Friday Reservation
-       - Saturday Reservation
-       - Sunday Reservation
+       * Class # / Weekday
+       * Monday Reservation (enter "yes" if reserved, "no" otherwise)
+       * Tuesday Reservation
+       * Wednesday Reservation
+       * Thursday Reservation
+       * Friday Reservation
+       * Saturday Reservation
+       * Sunday Reservation
 
 2. **Fill in the Required Information:**
 
@@ -86,8 +84,8 @@ To utilize our product, follow the steps below to ensure proper usage with a com
 
 4. **Run the IU Time Table Scheduler:**
 
-   - Open the IU Time Table Scheduler application.
-   - Provide the path or location of the completed input file as input to the application.
+   - Open the IU Time Table Scheduler [web application](http://lithium94.pythonanywhere.com/).
+   - Provide the completed input file to the application (Upload buttom on main page).
    - Execute the scheduling process.
 
 5. **Access the Generated Schedule:**
