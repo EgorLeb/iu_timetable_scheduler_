@@ -2,9 +2,10 @@
 
 ## Description
 
-The IU Time Table Scheduler is a project aimed at automating the process of creating schedules for university courses. The application takes input files containing detailed course information, teacher preferences, study-group requirements, rooms in the university, etc., and processes the data using an efficient scheduling algorithm. It generates a schedule that satisfies all constraints and presents it in a downloadable XLSX format.
+The IU Time Table Scheduler is an efficient tool designed to automate the scheduling process for university courses. This application accepts input files containing detailed course information, teacher preferences, and study-group requirements. It employs a sophisticated scheduling algorithm that efficiently processes the data and generates a schedule that satisfies all constraints. The resulting schedule is then conveniently formatted into a downloadable XLSX file.
 
 ## Demo
+![IU_Timetable_Scheduler Demo](pics/demo.gif)
 
 ## How To Use
 
@@ -17,19 +18,21 @@ To utilize our product, follow the steps below to ensure proper usage with a com
 
      * **"Courses" Sheet**:
      
-       This sheet contains information about the courses and consists of six columns:
+       Contains information about the courses and consists of six columns:
        * Course Name
        * Lecture/Tutorial Format (Online/Offline)
        * Course Type (Full, Block 1, or Block 2)
        * Course Year
        * Primary Instructor Name (required field)
        * Tutorial Instructor Name (can be written as "-")
+      ![Courses](pics/courses.png)
 
      * **"Course-Groups" Sheet**:
      
        This sheet lists the study groups associated with each course and consists of two columns:
        * Course Name (must match the corresponding course name in the "Courses" sheet)
        * Study Groups (listed separated by commas)
+      ![Course-groups](pics/course-group.png)
 
      * **"TA-Course-Groups" Sheet**:
      
@@ -37,6 +40,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * TA Name
        * Course Name
        * Number of Groups the TA can take on
+       ![tas](pics/ta-cources.png)
 
      * **"Teacher Preferences" Sheet**:
      
@@ -49,18 +53,21 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Friday Availability
        * Saturday Availability
        * Sunday Availability
+       ![preferences](pics/preferences.png)
 
      * **"Rooms Info" Sheet**:
      
        This sheet provides details about the available rooms and their capacities. It consists of two columns:
        * Room Number
        * Room Capacity
+       ![Rooms](pics/rooms.png)
 
      * **"Groups Info" Sheet**:
      
        This sheet contains information about the study groups and their sizes. It consists of two columns:
        * Group Name
        * Number of People in Group
+       ![Groups](pics/groups.png)
 
      * **"Sport Electives Reservations" Sheet**:
      
@@ -73,6 +80,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Friday Reservation
        * Saturday Reservation
        * Sunday Reservation
+       ![Sport](pics/sport.png)
 
 ### 2. Fill in the Required Information:
 
