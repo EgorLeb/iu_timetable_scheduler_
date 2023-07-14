@@ -42,13 +42,13 @@ To utilize our product, follow the steps below to ensure proper usage with a com
      
        This sheet captures the preferences of teachers regarding the days they can teach. It consists of eight columns:
        * Teacher* Name
-       * *Monday* Availability (enter "yes" if available, "no" otherwise)
-       * *Tuesday* Availability
-       * *Wednesday* Availability
-       * *Thursday* Availability
-       * *Friday* Availability
-       * *Saturday* Availability
-       * *Sunday* Availability
+       * Monday Availability (enter "yes" if available, "no" otherwise)
+       * Tuesday Availability
+       * Wednesday Availability
+       * Thursday Availability
+       * Friday Availability
+       * Saturday Availability
+       * Sunday Availability
 
      * **"Rooms Info" Sheet**:
      
@@ -66,13 +66,13 @@ To utilize our product, follow the steps below to ensure proper usage with a com
      
        This sheet allows for the reservation of specific days for sport electives. It consists of eight columns:
        * Class # / Weekday
-       * *Monday* Reservation (enter "yes" if reserved, "no" otherwise)
-       * *Tuesday* Reservation
-       * *Wednesday* Reservation
-       * *Thursday* Reservation
-       * *Friday* Reservation
-       * *Saturday* Reservation
-       * *Sunday* Reservation
+       * Monday Reservation (enter "yes" if reserved, "no" otherwise)
+       * Tuesday Reservation
+       * Wednesday Reservation
+       * Thursday Reservation
+       * Friday Reservation
+       * Saturday Reservation
+       * Sunday Reservation
 
 ### 2. Fill in the Required Information:
 
@@ -80,7 +80,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
 
 ### 3. Save the Input File:
 
-   Save the completed input file in .xlsx format, ensuring all changes are saved.
+   Save the completed input file in **.xlsx** format, ensuring all changes are saved.
 
 ### 4. Run the IU Time Table Scheduler:
 
