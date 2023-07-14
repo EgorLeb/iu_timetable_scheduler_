@@ -1,54 +1,143 @@
-# IU_Timetable_Scheduler
-
-This service is an efficient tool designed to automate the scheduling process for university courses. This application accepts input files containing detailed course information, teacher preferences, and study-group requirements. It employs a sophisticated scheduling algorithm that efficiently processes the data and generates a schedule that satisfies all constraints. The resulting schedule is then conveniently formatted into a downloadable XLSX file.
-
-![IU_Timetable_Scheduler Demo](video_2023-07-14_11-06-04.gif)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
+# Timetable Scheduler for Innopolis University
 
 ## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+
+The IU Time Table Scheduler is a project aimed at automating the process of creating schedules for university courses. The application takes input files containing detailed course information, teacher preferences, study-group requirements, rooms in the university, etc., and processes the data using an efficient scheduling algorithm. It generates a schedule that satisfies all constraints and presents it in a downloadable XLSX format.
+
+## Demo
+
+## How To Use
+
+## How to Use
+
+To utilize our product, follow the steps below to ensure proper usage with a completed input file in .xlsx format. The input file must adhere to the mandatory requirements outlined in this section.
+
+1. **Prepare the Input File:**
+
+   - Create an input file in .xlsx format.
+   - Ensure that the file includes the following sheets with their respective columns and data:
+
+     - **"Courses" Sheet**:
+     
+       This sheet contains information about the courses and consists of six columns:
+       - Course Name
+       - Lecture/Tutorial Format (Online/Offline)
+       - Course Type (Full, Block 1, or Block 2)
+       - Course Year
+       - Primary Instructor Name (required field)
+       - Tutorial Instructor Name (can be written as "-")
+
+     - **"Course-Groups" Sheet**:
+     
+       This sheet lists the study groups associated with each course and consists of two columns:
+       - Course Name (must match the corresponding course name in the "Courses" sheet)
+       - Study Groups (listed separated by commas)
+
+     - **"TA-Course-Groups" Sheet**:
+     
+       This sheet provides information about Teaching Assistants (TAs) and their assigned courses. It consists of three columns:
+       - TA Name
+       - Course Name
+       - Number of Groups the TA can take on
+
+     - **"Teacher Preferences" Sheet**:
+     
+       This sheet captures the preferences of teachers regarding the days they can teach. It consists of eight columns:
+       - Teacher Name
+       - Monday Availability (enter "yes" if available, "no" otherwise)
+       - Tuesday Availability
+       - Wednesday Availability
+       - Thursday Availability
+       - Friday Availability
+       - Saturday Availability
+       - Sunday Availability
+
+     - **"Rooms Info" Sheet**:
+     
+       This sheet provides details about the available rooms and their capacities. It consists of two columns:
+       - Room Number
+       - Room Capacity
+
+     - **"Groups Info" Sheet**:
+     
+       This sheet contains information about the study groups and their sizes. It consists of two columns:
+       - Group Name
+       - Number of People in Group
+
+     - **"Sport Electives Reservations" Sheet**:
+     
+       This sheet allows for the reservation of specific days for sport electives. It consists of eight columns:
+       - Class # / Weekday
+       - Monday Reservation (enter "yes" if reserved, "no" otherwise)
+       - Tuesday Reservation
+       - Wednesday Reservation
+       - Thursday Reservation
+       - Friday Reservation
+       - Saturday Reservation
+       - Sunday Reservation
+
+2. **Fill in the Required Information:**
+
+   Populate the corresponding columns and cells within each sheet of the input file with the relevant information for courses, study groups, instructors, TAs, room capacities, group sizes, and sport electives reservations.
+
+3. **Save the Input File:**
+
+   Save the completed input file in .xlsx format, ensuring all changes are saved.
+
+4. **Run the IU Time Table Scheduler:**
+
+   - Open the IU Time Table Scheduler application.
+   - Provide the path or location of the completed input file as input to the application.
+   - Execute the scheduling process.
+
+5. **Access the Generated Schedule:**
+
+   - Once the scheduling process is complete, the application will generate a schedule based on the provided input file.
+   - The schedule will be available in a downloadable XLSX format, presenting the allocated courses, instructors, rooms, and time slots.
+   - Download and open the generated schedule file to view the finalized timetable.
+
+
+## Features
+
+The IU Time Table Scheduler offers the following key features:
+
+1. **Fast Schedule Generation:** 
+The application is designed to create schedules quickly, ensuring efficient use of time for both students and administrators.
+
+1. **Overlapping Exclusion:** 
+The application ensures that there are no overlapping courses or study groups, avoiding scheduling conflicts and allowing students to attend all required classes.
+
+1. **Teacher Preferences:** 
+The application takes into account the preferences of teachers, allowing for optimized allocation of courses based on their availability and preferences.
+
+1. **Room Capacity Consideration:** 
+The application considers the capacity of rooms while scheduling courses, ensuring that the allocated rooms can accommodate the expected number of students.
+
+1. **Reserved Days for Sports:** 
+The application reserves specific days for sports activities, preventing conflicts between course schedules and sports events.
+
+1. **Easy Manual Refinement:** 
+The application provides easy manual refinement of the generated schedule. If there is something you don't like or want to change, you have the flexibility to make adjustments manually. The application displays the available audiences for each timeslot, allowing you to modify the output file effortlessly.
+
+
+## Project Installation
+
+## Technologies used
 
 ## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## For Customer
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## Acknowledgments
+We would like to express our gratitude to the contributors and supporters of the IU Time Table Scheduler project. Your valuable input and feedback have helped shape and improve this application. Thank you for your dedication and contributions.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Authors:
+1. [Alie Ablaeva](mailto:a.ablaeva@innopolis.university)
+1. [Elisei Smirnov](mailto:el.smirnov@innopolis.university)
+1. [Artem Matevosian](mailto:a.matevosian@innopolis.university)
+1. [Sofia Gamershmidt](mailto:s.gamershmidt@innopolis.university)
+1. [Egor Lebedev](mailto:e.lebedev@innopolis.university)
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## Contact
+For any questions, suggestions, or issues regarding the IU Time Table Scheduler, please contact our team at [email](mailto:el.smirnov@innopolis.university). We appreciate your feedback and will respond to your inquiry as soon as possible.
