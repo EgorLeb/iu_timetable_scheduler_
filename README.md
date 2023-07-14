@@ -29,9 +29,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Primary Instructor Name (required field)
        * Tutorial Instructor Name (can be written as "-")
        
-      <p align="center">
-        <img src="pics/courses.png" alt="Courses" width="700">
-      </p>
+  <p align="center">
+    <img src="pics/courses.png" alt="Courses" width="800">
+  </p>
 
      * **"Course-Groups" Sheet**:
      
@@ -39,9 +39,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Course Name (must match the corresponding course name in the "Courses" sheet)
        * Study Groups (listed separated by commas)
 
-      <p align="center">
-        <img src="pics/course-group.png" alt="Course-groups" width="700">
-      </p>
+  <p align="center">
+    <img src="pics/course-group.png" alt="Course-groups" width="800">
+  </p>
 
      * **"TA-Course-Groups" Sheet**:
      
@@ -50,9 +50,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Course Name
        * Number of Groups the TA can take on
 
-      <p align="center">
-        <img src="pics/ta-cources.png" alt="tas" width="700">
-      </p>
+  <p align="center">
+    <img src="pics/ta-cources.png" alt="tas" width="800">
+  </p>
 
      * **"Teacher Preferences" Sheet**:
      
@@ -66,9 +66,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Saturday Availability
        * Sunday Availability
 
-      <p align="center">
-        <img src="pics/preferences.png" alt="preferences" width="400">
-      </p>
+  <p align="center">
+    <img src="pics/preferences.png" alt="preferences" width="550">
+  </p>
 
      * **"Rooms Info" Sheet**:
      
