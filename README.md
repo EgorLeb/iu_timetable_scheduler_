@@ -30,7 +30,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Tutorial Instructor Name (can be written as "-")
        
       <p align="center">
-        <img src="pics/courses.gif" alt="Courses" width="700">
+        <img src="pics/courses.png" alt="Courses" width="700">
       </p>
 
      * **"Course-Groups" Sheet**:
@@ -40,7 +40,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Study Groups (listed separated by commas)
 
       <p align="center">
-        <img src="pics/course-group.gif" alt="Course-groups" width="700">
+        <img src="pics/course-group.png" alt="Course-groups" width="700">
       </p>
 
      * **"TA-Course-Groups" Sheet**:
@@ -51,7 +51,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Number of Groups the TA can take on
 
       <p align="center">
-        <img src="pics/ta-cources.gif" alt="tas" width="700">
+        <img src="pics/ta-cources.png" alt="tas" width="700">
       </p>
 
      * **"Teacher Preferences" Sheet**:
@@ -67,7 +67,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Sunday Availability
 
       <p align="center">
-        <img src="pics/preferences.gif" alt="preferences" width="400">
+        <img src="pics/preferences.png" alt="preferences" width="400">
       </p>
 
      * **"Rooms Info" Sheet**:
