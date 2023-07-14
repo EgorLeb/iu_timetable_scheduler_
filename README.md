@@ -9,7 +9,6 @@ The IU Time Table Scheduler is an efficient tool designed to automate the schedu
   <img src="pics/demo.gif" alt="IU_Timetable_Scheduler Demo" width="900">
 </p>
 
-![IU_Timetable_Scheduler Demo](pics/demo.gif)
 
 ## How To Use
 
@@ -30,7 +29,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Primary Instructor Name (required field)
        * Tutorial Instructor Name (can be written as "-")
        
-      ![Courses](pics/courses.png)
+      <p align="center">
+        <img src="pics/courses.gif" alt="Courses" width="700">
+      </p>
 
      * **"Course-Groups" Sheet**:
      
@@ -38,7 +39,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Course Name (must match the corresponding course name in the "Courses" sheet)
        * Study Groups (listed separated by commas)
 
-      ![Course-groups](pics/course-group.png)
+      <p align="center">
+        <img src="pics/course-group.gif" alt="Course-groups" width="700">
+      </p>
 
      * **"TA-Course-Groups" Sheet**:
      
@@ -47,7 +50,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Course Name
        * Number of Groups the TA can take on
 
-       ![tas](pics/ta-cources.png)
+      <p align="center">
+        <img src="pics/ta-cources.gif" alt="tas" width="700">
+      </p>
 
      * **"Teacher Preferences" Sheet**:
      
@@ -61,7 +66,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Saturday Availability
        * Sunday Availability
 
-      ![preferences](pics/preferences.png)
+      <p align="center">
+        <img src="pics/preferences.gif" alt="preferences" width="400">
+      </p>
 
      * **"Rooms Info" Sheet**:
      
