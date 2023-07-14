@@ -25,6 +25,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Course Year
        * Primary Instructor Name (required field)
        * Tutorial Instructor Name (can be written as "-")
+       
       ![Courses](pics/courses.png)
 
      * **"Course-Groups" Sheet**:
@@ -32,6 +33,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        This sheet lists the study groups associated with each course and consists of two columns:
        * Course Name (must match the corresponding course name in the "Courses" sheet)
        * Study Groups (listed separated by commas)
+
       ![Course-groups](pics/course-group.png)
 
      * **"TA-Course-Groups" Sheet**:
@@ -40,6 +42,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * TA Name
        * Course Name
        * Number of Groups the TA can take on
+
        ![tas](pics/ta-cources.png)
 
      * **"Teacher Preferences" Sheet**:
@@ -53,6 +56,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Friday Availability
        * Saturday Availability
        * Sunday Availability
+
       ![preferences](pics/preferences.png)
 
      * **"Rooms Info" Sheet**:
@@ -60,6 +64,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        This sheet provides details about the available rooms and their capacities. It consists of two columns:
        * Room Number
        * Room Capacity
+
       ![Rooms](pics/rooms.png)
 
      * **"Groups Info" Sheet**:
@@ -67,6 +72,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        This sheet contains information about the study groups and their sizes. It consists of two columns:
        * Group Name
        * Number of People in Group
+
       ![Groups](pics/groups.png)
 
      * **"Sport Electives Reservations" Sheet**:
@@ -80,6 +86,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Friday Reservation
        * Saturday Reservation
        * Sunday Reservation
+
       ![Sport](pics/sport.png)
 
 ### 2. Fill in the Required Information:
