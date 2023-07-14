@@ -77,7 +77,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Room Capacity
 
        <p align="center">
-        <img src="pics/rooms.png" alt="rooms" width="530">
+        <img src="pics/rooms.png" alt="rooms" width="440">
       </p>
 
      * **"Groups Info" Sheet**:
@@ -87,7 +87,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Number of People in Group
 
        <p align="center">
-        <img src="pics/groups.png" alt="groups" width="530">
+        <img src="pics/groups.png" alt="groups" width="440">
       </p>
 
      * **"Sport Electives Reservations" Sheet**:
