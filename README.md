@@ -29,9 +29,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Primary Instructor Name (required field)
        * Tutorial Instructor Name (can be written as "-")
        
-  <p align="center">
-    <img src="pics/courses.png" alt="Courses" width="800">
-  </p>
+      <p align="center">
+        <img src="pics/courses.png" alt="Courses" width="760">
+      </p>
 
      * **"Course-Groups" Sheet**:
      
@@ -39,9 +39,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Course Name (must match the corresponding course name in the "Courses" sheet)
        * Study Groups (listed separated by commas)
 
-  <p align="center">
-    <img src="pics/course-group.png" alt="Course-groups" width="800">
-  </p>
+      <p align="center">
+        <img src="pics/course-group.png" alt="Course-groups" width="760">
+      </p>
 
      * **"TA-Course-Groups" Sheet**:
      
@@ -50,9 +50,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Course Name
        * Number of Groups the TA can take on
 
-  <p align="center">
-    <img src="pics/ta-cources.png" alt="tas" width="800">
-  </p>
+      <p align="center">
+        <img src="pics/ta-cources.png" alt="tas" width="760">
+      </p>
 
      * **"Teacher Preferences" Sheet**:
      
@@ -66,9 +66,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Saturday Availability
        * Sunday Availability
 
-  <p align="center">
-    <img src="pics/preferences.png" alt="preferences" width="550">
-  </p>
+      <p align="center">
+        <img src="pics/preferences.png" alt="preferences" width="530">
+      </p>
 
      * **"Rooms Info" Sheet**:
      
@@ -76,7 +76,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Room Number
        * Room Capacity
 
-      ![Rooms](pics/rooms.png)
+       <p align="center">
+        <img src="pics/rooms.png" alt="rooms" width="530">
+      </p>
 
      * **"Groups Info" Sheet**:
      
@@ -84,7 +86,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Group Name
        * Number of People in Group
 
-      ![Groups](pics/groups.png)
+       <p align="center">
+        <img src="pics/groups.png" alt="groups" width="530">
+      </p>
 
      * **"Sport Electives Reservations" Sheet**:
      
@@ -98,7 +102,9 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Saturday Reservation
        * Sunday Reservation
 
-      ![Sport](pics/sport.png)
+       <p align="center">
+        <img src="pics/sport.png" alt="sport" width="530">
+      </p>
 
 ### 2. Fill in the Required Information:
 
