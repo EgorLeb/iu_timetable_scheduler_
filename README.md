@@ -53,21 +53,21 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Friday Availability
        * Saturday Availability
        * Sunday Availability
-       ![preferences](pics/preferences.png)
+      ![preferences](pics/preferences.png)
 
      * **"Rooms Info" Sheet**:
      
        This sheet provides details about the available rooms and their capacities. It consists of two columns:
        * Room Number
        * Room Capacity
-       ![Rooms](pics/rooms.png)
+      ![Rooms](pics/rooms.png)
 
      * **"Groups Info" Sheet**:
      
        This sheet contains information about the study groups and their sizes. It consists of two columns:
        * Group Name
        * Number of People in Group
-       ![Groups](pics/groups.png)
+      ![Groups](pics/groups.png)
 
      * **"Sport Electives Reservations" Sheet**:
      
@@ -80,7 +80,7 @@ To utilize our product, follow the steps below to ensure proper usage with a com
        * Friday Reservation
        * Saturday Reservation
        * Sunday Reservation
-       ![Sport](pics/sport.png)
+      ![Sport](pics/sport.png)
 
 ### 2. Fill in the Required Information:
 
