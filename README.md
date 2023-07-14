@@ -10,7 +10,7 @@ The IU Time Table Scheduler is a project aimed at automating the process of crea
 
 To utilize our product, follow the steps below to ensure proper usage with a completed input file in .xlsx format. The input file must adhere to the mandatory requirements outlined in this section.
 
-1. **Prepare the Input File:**
+### 1. **Prepare the Input File:**
 
    - Create an input file in .xlsx format.
    - Ensure that the file includes the following sheets with their respective columns and data:
@@ -41,14 +41,14 @@ To utilize our product, follow the steps below to ensure proper usage with a com
      * **"Teacher Preferences" Sheet**:
      
        This sheet captures the preferences of teachers regarding the days they can teach. It consists of eight columns:
-       * Teacher Name
-       * Monday Availability (enter "yes" if available, "no" otherwise)
-       * Tuesday Availability
-       * Wednesday Availability
-       * Thursday Availability
-       * Friday Availability
-       * Saturday Availability
-       * Sunday Availability
+       * Teacher* Name
+       * *Monday* Availability (enter "yes" if available, "no" otherwise)
+       * *Tuesday* Availability
+       * *Wednesday* Availability
+       * *Thursday* Availability
+       * *Friday* Availability
+       * *Saturday* Availability
+       * *Sunday* Availability
 
      * **"Rooms Info" Sheet**:
      
@@ -66,29 +66,29 @@ To utilize our product, follow the steps below to ensure proper usage with a com
      
        This sheet allows for the reservation of specific days for sport electives. It consists of eight columns:
        * Class # / Weekday
-       * Monday Reservation (enter "yes" if reserved, "no" otherwise)
-       * Tuesday Reservation
-       * Wednesday Reservation
-       * Thursday Reservation
-       * Friday Reservation
-       * Saturday Reservation
-       * Sunday Reservation
+       * *Monday* Reservation (enter "yes" if reserved, "no" otherwise)
+       * *Tuesday* Reservation
+       * *Wednesday* Reservation
+       * *Thursday* Reservation
+       * *Friday* Reservation
+       * *Saturday* Reservation
+       * *Sunday* Reservation
 
-2. **Fill in the Required Information:**
+### 2. **Fill in the Required Information:**
 
    Populate the corresponding columns and cells within each sheet of the input file with the relevant information for courses, study groups, instructors, TAs, room capacities, group sizes, and sport electives reservations.
 
-3. **Save the Input File:**
+### 3. **Save the Input File:**
 
    Save the completed input file in .xlsx format, ensuring all changes are saved.
 
-4. **Run the IU Time Table Scheduler:**
+### 4. **Run the IU Time Table Scheduler:**
 
    - Open the IU Time Table Scheduler [web application](http://lithium94.pythonanywhere.com/).
    - Provide the completed input file to the application (Upload buttom on main page).
    - Execute the scheduling process.
 
-5. **Access the Generated Schedule:**
+### 5. **Access the Generated Schedule:**
 
    - Once the scheduling process is complete, the application will generate a schedule based on the provided input file.
    - The schedule will be available in a downloadable XLSX format, presenting the allocated courses, instructors, rooms, and time slots.
