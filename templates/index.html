@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/upl.css') }}">
+
+    <title>UI Time table scheduler</title>
+</head>
+    <body>
+        <div class = "page">
+            <div class = "frame">
+                <div class ="back">
+                    <div class = "ellipse1"></div>
+                    <div class = "ellipse1 ellipse2"></div>
+                    <div class = "ellipse1 ellipse3"></div>
+                </div>
+                <div class="heading">
+
+                    <p class="caption">
+                        TIME TABLE SCHEDULER FOR INNOPOLIS
+                    </p>
+
+                    <div class="line1">
+                    </div>
+
+                </div>
+                <div class = "parent" id = "upload-design">
+                    <div class = "rectangle-up">
+                        <div class = "textShiftUpload btnFont">UPLOAD INPUT DATA</div>
+                        <button id = "upl" class = "btn btnShift btnFont" >UPLOAD</button>
+                    </div>
+                    
+                </div>
+                <div class = "parent hidden" id = "download-design">
+                    <div class = "rectangle-up">
+                        <div class = "textShiftUpload btnFont">DOWNLOAD RESULT</div>
+                        <button class = "btn btnShift btnFont" id = "download">DOWNLOAD</button>
+                    </div>
+                    <button id = "redo">&#11119;</button>
+                </div>
+                <div>
+                    <div id = "huge" class = "huge hidden">
+                       <div class = "uploadWindow">
+                            <button class = "close" id = "closeBtn"><div class = "drawing"></div></button>
+                            
+                            <form class="act" action="" method=post enctype=multipart/form-data>
+                                <div id="drop-zone">
+                                    <p>Select or drop your input file here </p>
+                                </div>
+                                <div class="buttons">
+                                    <label for="uploadbtn" class="labelSelect">Select file</label>
+                                    <input style="opacity: 0; z-index: -1;" multiple type="file" name="file" accept=".xlsx" id="uploadbtn"
+                                           onchange="processSelectedFiles(this)" />
+                                    <div class="file" id="selfile">File isn't selected</div>
+
+                                    <input type="submit" class="labelSelect" name="uploadFile" value="Submit">
+                                </div>
+                            </form> 
+                            
+                            
+                       </div>
+                    </div> 
+                </div> 
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    </body>
+</html>
