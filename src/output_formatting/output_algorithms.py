@@ -25,13 +25,51 @@ def parametrized(week):
     return result
 
 
+# week format is NOT parametrized
+def empty_rooms(week, rooms):
+    # result format: (weekday, class_number) -> [available rooms]
+    result = dict()
+
+    def to_string(x):
+        if type(x) not in (str, int):
+            return str(x.item())
+        else:
+            return str(x)
+
+    def actual_occupied_room(room):
+        if "online" in to_string(room):
+            return False
+        if not to_string(room).isnumeric():
+            return False
+        return not (week[weekday][class_number][int(to_string(room))] is None)
+
+    for weekday in WEEKDAYS:
+        result[weekday] = dict()
+        for class_number in range(len(week[weekday])):
+            # result[weekday][class_number] = list()
+            occupied_rooms = set(filter(actual_occupied_room,
+                                        map(to_string, week[weekday][class_number].keys())))
+            available_rooms = rooms - occupied_rooms
+            result[weekday][class_number] = sorted(available_rooms)
+    return result
+
+
 # week format: (weekday, class_number, group_name) -> (room_number, class_name, instructor)
-def create_xlsx(block1, block2, groups):
+def create_xlsx(block1_raw, block2_raw, groups, rooms):
     wb = Workbook()
-    total_block1 = wb.active
-    total_block1.title = "Block 1"
+    available_rooms_sheet = wb.active
+    available_rooms_sheet.title = "Available rooms"
+    total_block1 = wb.create_sheet("Block 1")
     total_block2 = wb.create_sheet("Block 2")
     rest_width_offset = 0
+
+    write_available_rooms(available_rooms_sheet,
+                          empty_rooms(block1_raw, rooms),
+                          empty_rooms(block2_raw, rooms)
+                         )
+
+    block1 = parametrized(block1_raw)
+    block2 = parametrized(block2_raw)
 
     for year in YEARS:
         year_groups = list(filter(lambda x: x.startswith(year), groups))
@@ -165,6 +203,37 @@ def create_xlsx(block1, block2, groups):
 def get_row_offset(weekday, class_number):
     weekday_number = WEEKDAYS.index(weekday)
     return 1 + weekday_number * 19 + 1 + class_number * 3
+
+
+def write_available_rooms(sheet, available1, available2):
+    font = Font(bold=True)
+    border = Border(top=Side(border_style="thin", color='FF000000'),
+                    bottom=Side(border_style="thin", color='FF000000'))
+    fill = PatternFill(fill_type="solid",
+                       start_color="22FF22",
+                       end_color="22FF22")
+
+    for weekday in range(len(WEEKDAYS)):
+        sheet.cell(row=weekday * 7 + 1, column=1, value=WEEKDAYS[weekday])
+        sheet.cell(row=weekday * 7 + 1, column=2, value="Rooms available in Block 1")
+        sheet.cell(row=weekday * 7 + 1, column=3, value="Rooms available in Block 2")
+        sheet[f"A{weekday * 7 + 1}"].font = font
+        sheet[f"A{weekday * 7 + 1}"].border = border
+        sheet[f"A{weekday * 7 + 1}"].fill = fill
+        sheet[f"B{weekday * 7 + 1}"].border = border
+        sheet[f"B{weekday * 7 + 1}"].fill = fill
+        sheet[f"C{weekday * 7 + 1}"].border = border
+        sheet[f"C{weekday * 7 + 1}"].fill = fill
+
+        for class_number in range(0, 6):
+            sheet.cell(row=weekday * 7 + class_number + 2, column=1, value=PERIODS[class_number])
+            sheet.cell(row=weekday * 7 + class_number + 2, column=2,
+                       value=" ".join(available1[WEEKDAYS[weekday]][class_number]))
+            sheet.cell(row=weekday * 7 + class_number + 2, column=3,
+                       value=" ".join(available2[WEEKDAYS[weekday]][class_number]))
+        sheet.column_dimensions["A"].auto_size = True
+        sheet.column_dimensions["B"].auto_size = True
+        sheet.column_dimensions["C"].auto_size = True
 
 
 def prettify(sheet, number_of_groups, class_period_column=0):

@@ -301,8 +301,8 @@ def get_schedule():
         week2[i].insert(0, {'Sport Complex': ["Sport", "Electives", [x for x in groups if "B" in x]]})
     for i in sport_days:
         week1[i].insert(0, {'Sport Complex': ["Sport", "Electives", [x for x in groups if "B" in x]]})
-    return week1, week2, tuple(x for x in groups)
+    return week1, week2, tuple(x for x in groups), set(map(lambda x: str(x.item()), rooms.keys()))
 
 
-week1, week2, groups = get_schedule()
-create_xlsx(parametrized(week1), parametrized(week2), groups)
+week1, week2, groups, rooms = get_schedule()
+create_xlsx(week1, week2, groups, rooms)
