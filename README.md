@@ -169,7 +169,16 @@ You can bring up the server yourself.
 
 Server is written in Flask, JS, HTML and CSS.
 
+For deploying the your server you need:
 
+1) Upload the directories from this repository (input_data, static, src, templates), follow their inner hierarchy.
+2) Create additional directory: output_data.
+3) Upload the main file: flask.py from main repository(code of flask server). 
+4) Install required libraries and packages if necessary.
+
+There can be some problems with file paths in following places:
+src/output_formatting/output_algorithms.py: wb.save(os.path.join("mysite/output_data", "schedule.xlsx"))
+src/input_parsing/parser_algorithm.py: path_to_input=Path('../..').resolve() / 'input_data/Time_Table_Input.xlsx'):
 
 ## Acknowledgments
 We would like to express our gratitude to the contributors and supporters of the IU Time Table Scheduler project. Your valuable input and feedback have helped shape and improve this application. Thank you for your dedication and contributions.
