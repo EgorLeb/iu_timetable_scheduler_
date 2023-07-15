@@ -2,7 +2,7 @@
 
 ## Description
 
-The IU Time Table Scheduler is an efficient tool designed to automate the scheduling process for university courses. This application accepts input files containing detailed course information, teacher preferences, and study-group requirements. It employs a sophisticated scheduling algorithm that efficiently processes the data and generates a schedule that satisfies all constraints. The resulting schedule is then conveniently formatted into a downloadable XLSX file.
+The IU Time Table Scheduler is an efficient tool designed **to automate the scheduling process** for university courses. This application accepts input files containing detailed course information, teacher preferences, and study-group requirements. It employs a sophisticated scheduling algorithm that efficiently processes the data and **generates a schedule that satisfies all constraints**. The resulting schedule is then conveniently formatted into a downloadable **XLSX** file.
 
 ## Demo
 <p align="center">
