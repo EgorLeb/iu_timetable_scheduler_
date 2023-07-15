@@ -16,7 +16,7 @@
 - [For Customer](#for-customer)
 - [Acknowledgments](#acknowledgments)
 - [Contact](#contact)
-
+- [License](#license)
 
 ## Description
 
@@ -255,3 +255,8 @@ Authors:
 
 ## Contact
 For any questions, suggestions, or issues regarding the IU Time Table Scheduler, please contact our team at [email](mailto:el.smirnov@innopolis.university). We appreciate your feedback and will respond to your inquiry as soon as possible.
+
+
+## License
+
+This project is licensed under the terms of the MIT License. See the [LICENSE](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/-/blob/main/LICENSE) file for more information.
