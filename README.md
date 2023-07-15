@@ -165,10 +165,9 @@ The application provides easy manual refinement of the generated schedule. If th
 
 ## For Customer
 
-you can bring up the server yourself.
+You can bring up the server yourself.
 
-server is written in Flask, JS, HTML and CSS.
-
+Server is written in Flask, JS, HTML and CSS.
 
 
 
