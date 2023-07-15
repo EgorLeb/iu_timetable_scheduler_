@@ -14,6 +14,8 @@ The IU Time Table Scheduler is an efficient tool designed **to automate the sche
 
 To utilize our product, follow the steps below to ensure proper usage with a completed input file in .xlsx format. The input file must adhere to the mandatory requirements outlined in this section.
 
+*Please Note:* An example of a completed input file can be downloaded [here](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/-/raw/main/input_data/Time_Table_Input.xlsx) for reference and as a guideline. 
+
 ### 1. Prepare the Input File:
 
    - Create an input file in .xlsx format.
