@@ -196,19 +196,13 @@ These technologies enable efficient parsing of input files, implementation of th
 
 ## Badges
 
-### Pipeline: 
-
 ![Pipeline Status](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/badges/main/pipeline.svg)
 
   This badge signifies that the project's pipeline is currently passing successfully. It indicates that the continuous integration/continuous delivery (CI/CD) pipeline is functioning correctly, ensuring efficient and reliable project development and deployment processes.
 
-### Coverage: 
-
 ![Code Coverage](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/badges/main/coverage.svg?job=unit-test-job)
 
-  This badge reflects the code coverage of the IU Time Table Scheduler project. It indicates that a significant portion of the codebase is covered by automated tests. Code coverage helps ensure that the code is thoroughly tested, reducing the likelihood of undetected bugs or issues.
-
-### Linting: 
+  This badge reflects the code coverage of the IU Time Table Scheduler project. It indicates that a significant portion of the codebase is covered by automated tests. Code coverage helps ensure that the code is thoroughly tested, reducing the likelihood of undetected bugs or issues. 
 
 ![Linting Score](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/-/jobs/artifacts/main/raw/pylint/pylint.svg?job=lint-test-job)
 
