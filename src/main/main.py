@@ -202,33 +202,32 @@ def get_schedule():
                                     q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                     ind_of_group += 1
                 for i in q:
-                    for j in set(list(createEmptyWeek(sport_days, rooms))) - {"Sun"}:
-                        if len(i[1].get_preferences()) == 0 or j in i[1].get_preferences():
-                            for k in range(2, len(week1[j])):
-                                flag = True
+                    for j in (set(list(createEmptyWeek(sport_days, rooms))) - {"Sun", "Sat"} if len(i[1].get_preferences()) == 0 else i[1].get_preferences()):
+                        for k in range(2, len(week1[j])):
+                            flag = True
+                            for l in week1[j][k]:
+                                if week1[j][k][l] is not None and (
+                                        i[2].get_name() in week1[j][k][l][2] or week1[j][k][l][1] == i[1]._name):
+                                    flag = False
+                            if flag:
                                 for l in week1[j][k]:
-                                    if week1[j][k][l] is not None and (
-                                            i[2].get_name() in week1[j][k][l][2] or week1[j][k][l][1] == i[1]._name):
-                                        flag = False
-                                if flag:
-                                    for l in week1[j][k]:
-                                        if week1[j][k][l] is None and rooms[l].room_capacity >= i[
-                                            2].get_people_number():
-                                            if i[0]._study_format == "Offline":
-                                                week1[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name,
-                                                                  [i[2].get_name()]]
-                                            else:
-                                                week1[j][k][f"online {ind_of_online}"] = [i[0]._course_name + ' (lab)',
-                                                                                          i[1]._name,
-                                                                                          [i[2].get_name()]]
-                                                ind_of_online += 1
-                                            break
-                                    else:
-                                        continue
-                                    break
-                            else:
-                                continue
-                            break
+                                    if week1[j][k][l] is None and rooms[l].room_capacity >= i[
+                                        2].get_people_number():
+                                        if i[0]._study_format == "Offline":
+                                            week1[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name,
+                                                              [i[2].get_name()]]
+                                        else:
+                                            week1[j][k][f"online {ind_of_online}"] = [i[0]._course_name + ' (lab)',
+                                                                                      i[1]._name,
+                                                                                      [i[2].get_name()]]
+                                            ind_of_online += 1
+                                        break
+                                else:
+                                    continue
+                                break
+                        else:
+                            continue
+                        break
                     else:
                         print("Что-то не добавилось(")
 
@@ -288,32 +287,31 @@ def get_schedule():
                                     q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                     ind_of_group += 1
                 for i in q:
-                    for j in set(list(createEmptyWeek(sport_days, rooms))) - {"Sun"}:
-                        if len(i[1].get_preferences()) == 0 or j in i[1].get_preferences():
-                            for k in range(2, len(week2[j])):
-                                flag = True
+                    for j in (set(list(createEmptyWeek(sport_days, rooms))) - {"Sun", "Sat"} if len(i[1].get_preferences()) == 0 else i[1].get_preferences()):
+                        for k in range(2, len(week2[j])):
+                            flag = True
+                            for l in week2[j][k]:
+                                if week2[j][k][l] is not None and (
+                                        i[2].get_name() in week2[j][k][l][2] or week2[j][k][l][1] == i[1]._name):
+                                    flag = False
+                            if flag:
                                 for l in week2[j][k]:
-                                    if week2[j][k][l] is not None and (
-                                            i[2].get_name() in week2[j][k][l][2] or week2[j][k][l][1] == i[1]._name):
-                                        flag = False
-                                if flag:
-                                    for l in week2[j][k]:
-                                        if week2[j][k][l] is None and rooms[l].room_capacity >= i[
-                                            2].get_people_number():
-                                            if i[0]._study_format == "Offline":
-                                                week2[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name,
-                                                                  [i[2].get_name()]]
-                                            else:
-                                                week2[j][k][f"online {ind_of_online}"] = [i[0]._course_name + ' (lab)', i[1]._name,
-                                                                  [i[2].get_name()]]
-                                                ind_of_online += 1
-                                            break
-                                    else:
-                                        continue
-                                    break
-                            else:
-                                continue
-                            break
+                                    if week2[j][k][l] is None and rooms[l].room_capacity >= i[
+                                        2].get_people_number():
+                                        if i[0]._study_format == "Offline":
+                                            week2[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name,
+                                                              [i[2].get_name()]]
+                                        else:
+                                            week2[j][k][f"online {ind_of_online}"] = [i[0]._course_name + ' (lab)', i[1]._name,
+                                                              [i[2].get_name()]]
+                                            ind_of_online += 1
+                                        break
+                                else:
+                                    continue
+                                break
+                        else:
+                            continue
+                        break
                     else:
                         print("Что-то не добавилось(")
 
