@@ -179,8 +179,12 @@ For deploying the your server you need:
 4) Install required libraries and packages if necessary.
 
 There can be some problems with file paths in following places:
-src/output_formatting/output_algorithms.py: wb.save(os.path.join("mysite/output_data", "schedule.xlsx"))
-src/input_parsing/parser_algorithm.py: path_to_input=Path('../..').resolve() / 'input_data/Time_Table_Input.xlsx'):
+
+src/output_formatting/output_algorithms.py:
+ - wb.save(os.path.join("mysite/output_data", "schedule.xlsx"))
+ 
+src/input_parsing/parser_algorithm.py:
+ - path_to_input=Path('../..').resolve() / 'input_data/Time_Table_Input.xlsx'):
 
 ## Acknowledgments
 We would like to express our gratitude to the contributors and supporters of the IU Time Table Scheduler project. Your valuable input and feedback have helped shape and improve this application. Thank you for your dedication and contributions.
