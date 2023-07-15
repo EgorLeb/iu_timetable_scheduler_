@@ -3,7 +3,6 @@ from openpyxl.styles import PatternFill, Border, Side, Alignment, Font
 from openpyxl.utils import get_column_letter
 
 WEEKDAYS = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
-YEARS = ('B22', 'B21', 'B20', 'B19', 'M22')
 PERIODS = ("9:00-10:30", "10:40-12:10", "12:40-14:10", "14:20-15:50", "16:00-17:30", "17:40-19:00")
 
 
@@ -70,6 +69,9 @@ def create_xlsx(block1_raw, block2_raw, groups, rooms):
 
     block1 = parametrized(block1_raw)
     block2 = parametrized(block2_raw)
+
+    YEARS = sorted(set(map(lambda x: x.split("-")[0], groups)), reverse=True)
+    YEARS = sorted(YEARS, key=lambda x: x[0])
 
     for year in YEARS:
         year_groups = list(filter(lambda x: x.startswith(year), groups))
@@ -347,3 +349,10 @@ def prettify(sheet, number_of_groups, class_period_column=0):
                 current_value = sheet.cell(row=row_number,
                                            column=column).value
                 current_value = str(current_value).strip()
+
+    # "online X" -> "ONLINE"
+    for row_number in range(1, get_row_offset("Sun", 6) + 4):
+        for column in range(2, 2 + number_of_groups):
+            current_value = str(sheet.cell(row=row_number, column=column).value)
+            if current_value.startswith("online"):
+                sheet.cell(row=row_number, column=column, value="ONLINE")
