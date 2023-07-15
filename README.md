@@ -1,5 +1,23 @@
 # Timetable Scheduler for Innopolis University
 
+## Table of Contents
+- [Description](#description)
+- [Demo](#demo)
+- [How To Use](#how-to-use)
+  - [Prepare the Input File](#1-prepare-the-input-file)
+  - [Fill in the Required Information](#2-fill-in-the-required-information)
+  - [Save the Input File](#3-save-the-input-file)
+  - [Run the IU Time Table Scheduler](#4-run-the-iu-time-table-scheduler)
+  - [Access the Generated Schedule](#5-access-the-generated-schedule)
+- [Features](#features)
+- [Project Installation](#project-installation)
+- [Technologies Used](#technologies-used)
+- [Badges](#badges)
+- [For Customer](#for-customer)
+- [Acknowledgments](#acknowledgments)
+- [Contact](#contact)
+
+
 ## Description
 
 The IU Time Table Scheduler is an efficient tool designed **to automate the scheduling process** for university courses. This application accepts input files containing detailed course information, teacher preferences, and study-group requirements. It employs a sophisticated scheduling algorithm that efficiently processes the data and **generates a schedule that satisfies all constraints**. The resulting schedule is then conveniently formatted into a downloadable **XLSX** file.
@@ -161,35 +179,20 @@ The application provides easy manual refinement of the generated schedule. If th
 
 ## Project Installation
 
-## Technologies used
+The IU Time Table Scheduler is already deployed and accessible on the web [here](http://lithium94.pythonanywhere.com/). Therefore, there is no need for installation or setup on your end.
+
+To access and use the IU Time Table Scheduler, simply visit the provided web URL and follow the instructions in the "How To Use" section.
+
 
 ## Technologies Used
 
-### Backend Technologies:
+The IU Time Table Scheduler incorporates a variety of technologies to deliver its functionality and user interface. The project utilizes the following technologies:
 
-- **Python**: The code for parsing input files, implementing the scheduling algorithm, and generating the schedule in XLS file format is written in Python.
-  - Key Packages:
-    - `openpyxl` (version 3.1.2): Used for reading and writing Excel files.
-    - `pandas` (version 2.0.2): Utilized for data manipulation and analysis.
-    - `xlrd` (version 2.0.1): Employed for reading data from Excel files.
-    - Other supporting packages: `numpy`, `pytz`, `python-dateutil`, `pyinstaller`, `pywin32-ctypes`, `setuptools`, `tzdata`, `wheel`, etc.
+- **Backend Technologies**: Python, openpyxl, pandas, xlrd, and other supporting packages.
+- **Frontend Technologies**: HTML, CSS, and JavaScript (JS) with a JS framework.
+- **Web Framework**: Flask, Jinja2, Werkzeug, and other supporting packages.
 
-### Frontend Technologies:
-
-- **HTML**: The web interface of the application incorporates HTML for structuring the content.
-- **CSS**: CSS is utilized to enhance the visual presentation and styling of the web interface.
-- **JavaScript (JS) Framework**: JavaScript is employed with a JS framework to add interactivity and dynamic behavior to the web interface.
-
-### Web Framework:
-
-- **Flask**: The web application framework Flask is used for the development of the web interface. Flask enables the integration of Python code with HTML templates, facilitating the dynamic rendering of content and interactions with the backend logic.
-  - Key Packages:
-    - `Flask` (version 2.3.2): The primary web framework for building the web application.
-    - `Jinja2` (version 3.1.2): A templating engine used in conjunction with Flask for rendering dynamic content.
-    - `Werkzeug` (version 2.3.6): A utility library utilized by Flask for various web development tasks.
-
-
-## Badges
+These technologies enable efficient parsing of input files, implementation of the scheduling algorithm, generation of the schedule, and development of the user-friendly web interface.
 
 ## Badges
 
