@@ -163,7 +163,47 @@ The application provides easy manual refinement of the generated schedule. If th
 
 ## Technologies used
 
+## Technologies Used
+
+### Backend Technologies:
+
+- **Python**: The code for parsing input files, implementing the scheduling algorithm, and generating the schedule in XLS file format is written in Python.
+  - Key Packages:
+    - `openpyxl` (version 3.1.2): Used for reading and writing Excel files.
+    - `pandas` (version 2.0.2): Utilized for data manipulation and analysis.
+    - `xlrd` (version 2.0.1): Employed for reading data from Excel files.
+    - Other supporting packages: `numpy`, `pytz`, `python-dateutil`, `pyinstaller`, `pywin32-ctypes`, `setuptools`, `tzdata`, `wheel`, etc.
+
+### Frontend Technologies:
+
+- **HTML**: The web interface of the application incorporates HTML for structuring the content.
+- **CSS**: CSS is utilized to enhance the visual presentation and styling of the web interface.
+- **JavaScript (JS) Framework**: JavaScript is employed with a JS framework to add interactivity and dynamic behavior to the web interface.
+
+### Web Framework:
+
+- **Flask**: The web application framework Flask is used for the development of the web interface. Flask enables the integration of Python code with HTML templates, facilitating the dynamic rendering of content and interactions with the backend logic.
+  - Key Packages:
+    - `Flask` (version 2.3.2): The primary web framework for building the web application.
+    - `Jinja2` (version 3.1.2): A templating engine used in conjunction with Flask for rendering dynamic content.
+    - `Werkzeug` (version 2.3.6): A utility library utilized by Flask for various web development tasks.
+
+
 ## Badges
+
+## Badges
+
+- **Pipeline**: ![Pipeline Status](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/-/commits/main)
+
+  This badge signifies that the project's pipeline is currently passing successfully. It indicates that the continuous integration/continuous delivery (CI/CD) pipeline is functioning correctly, ensuring efficient and reliable project development and deployment processes.
+
+- **Coverage**: ![Code Coverage](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/-/commits/main)
+
+  This badge reflects the code coverage of the IU Time Table Scheduler project. It indicates that a significant portion of the codebase is covered by automated tests. Code coverage helps ensure that the code is thoroughly tested, reducing the likelihood of undetected bugs or issues.
+
+- **Linting**: ![Linting Score](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/-/jobs/artifacts/main/raw/pylint/pylint.log?job=lint-test-job)
+
+  This badge represents the linting score of the project. Linting helps maintain code quality, readability, and consistency across the project.
 
 ## For Customer
 
