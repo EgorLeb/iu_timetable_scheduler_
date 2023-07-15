@@ -193,19 +193,19 @@ The application provides easy manual refinement of the generated schedule. If th
 
 ## Badges
 
-- **Pipeline**: 
+### Pipeline: 
 
 ![Pipeline Status](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/badges/main/pipeline.svg)
 
   This badge signifies that the project's pipeline is currently passing successfully. It indicates that the continuous integration/continuous delivery (CI/CD) pipeline is functioning correctly, ensuring efficient and reliable project development and deployment processes.
 
-- **Coverage**: 
+### Coverage: 
 
 ![Code Coverage](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/badges/main/coverage.svg?job=unit-test-job)
 
   This badge reflects the code coverage of the IU Time Table Scheduler project. It indicates that a significant portion of the codebase is covered by automated tests. Code coverage helps ensure that the code is thoroughly tested, reducing the likelihood of undetected bugs or issues.
 
-- **Linting**: 
+### Linting: 
 
 ![Linting Score](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/-/jobs/artifacts/main/raw/pylint/pylint.svg?job=lint-test-job)
 
@@ -217,18 +217,18 @@ The application provides easy manual refinement of the generated schedule. If th
 
 To deploy the server for your customer, follow these steps:
 
-1. Server Technologies:
+1. **Server Technologies:**
 
    The server is built using Flask, JS, HTML, and CSS.
 
-2. Directory Structure:
+2. **Directory Structure:**
 
    - Upload the directories from this repository (`input_data`, `static`, `src`, `templates`) while preserving their inner hierarchy.
    - Create an additional directory named `output_data`.
    - Upload the main file `flask.py` from the main repository, which contains the code for the Flask server.
    - If necessary, install any required libraries and packages.
 
-3. File Path Considerations:
+3. **File Path Considerations:**
 
    Ensure that the following file paths are correctly set in the respective places:
 
@@ -238,7 +238,7 @@ To deploy the server for your customer, follow these steps:
    - In `src/input_parsing/parser_algorithm.py`:
      - `path_to_input=Path('../..').resolve() / 'input_data/Time_Table_Input.xlsx'`
 
-By following these deployment instructions, you can bring up the server for your customer and ensure that the necessary files and directories are in place.
+By following these deployment instructions, you can bring up the server.
 
 ## Acknowledgments
 We would like to express our gratitude to the contributors and supporters of the IU Time Table Scheduler project. Your valuable input and feedback have helped shape and improve this application. Thank you for your dedication and contributions.
