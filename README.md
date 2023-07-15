@@ -193,38 +193,52 @@ The application provides easy manual refinement of the generated schedule. If th
 
 ## Badges
 
-- **Pipeline**: ![Pipeline Status](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/badges/main/pipeline.svg)
+- **Pipeline**: 
+
+![Pipeline Status](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/badges/main/pipeline.svg)
 
   This badge signifies that the project's pipeline is currently passing successfully. It indicates that the continuous integration/continuous delivery (CI/CD) pipeline is functioning correctly, ensuring efficient and reliable project development and deployment processes.
 
-- **Coverage**: ![Code Coverage](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/badges/main/coverage.svg?job=unit-test-job)
+- **Coverage**: 
+
+![Code Coverage](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/badges/main/coverage.svg?job=unit-test-job)
 
   This badge reflects the code coverage of the IU Time Table Scheduler project. It indicates that a significant portion of the codebase is covered by automated tests. Code coverage helps ensure that the code is thoroughly tested, reducing the likelihood of undetected bugs or issues.
 
-- **Linting**: ![Linting Score](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/-/jobs/artifacts/main/raw/pylint/pylint.svg?job=lint-test-job)
+- **Linting**: 
+
+![Linting Score](https://gitlab.pg.innopolis.university/a.matevosian/iu_timetable_scheduler/-/jobs/artifacts/main/raw/pylint/pylint.svg?job=lint-test-job)
 
   This badge represents the linting score of the project. Linting helps maintain code quality, readability, and consistency across the project.
 
 ## For Customer
 
-You can bring up the server yourself.
+### Deployment Instructions
 
-Server is written in Flask, JS, HTML and CSS.
+To deploy the server for your customer, follow these steps:
 
-For deploying the your server you need:
+1. Server Technologies:
 
-1) Upload the directories from this repository (input_data, static, src, templates), follow their inner hierarchy.
-2) Create additional directory: output_data.
-3) Upload the main file: flask.py from main repository(code of flask server). 
-4) Install required libraries and packages if necessary.
+   The server is built using Flask, JS, HTML, and CSS.
 
-There can be some problems with file paths in following places:
+2. Directory Structure:
 
-src/output_formatting/output_algorithms.py:
- - wb.save(os.path.join("mysite/output_data", "schedule.xlsx"))
- 
-src/input_parsing/parser_algorithm.py:
- - path_to_input=Path('../..').resolve() / 'input_data/Time_Table_Input.xlsx'):
+   - Upload the directories from this repository (`input_data`, `static`, `src`, `templates`) while preserving their inner hierarchy.
+   - Create an additional directory named `output_data`.
+   - Upload the main file `flask.py` from the main repository, which contains the code for the Flask server.
+   - If necessary, install any required libraries and packages.
+
+3. File Path Considerations:
+
+   Ensure that the following file paths are correctly set in the respective places:
+
+   - In `src/output_formatting/output_algorithms.py`:
+     - `wb.save(os.path.join("mysite/output_data", "schedule.xlsx"))`
+
+   - In `src/input_parsing/parser_algorithm.py`:
+     - `path_to_input=Path('../..').resolve() / 'input_data/Time_Table_Input.xlsx'`
+
+By following these deployment instructions, you can bring up the server for your customer and ensure that the necessary files and directories are in place.
 
 ## Acknowledgments
 We would like to express our gratitude to the contributors and supporters of the IU Time Table Scheduler project. Your valuable input and feedback have helped shape and improve this application. Thank you for your dedication and contributions.
