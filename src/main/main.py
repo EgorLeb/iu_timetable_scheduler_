@@ -1,5 +1,14 @@
 from src.input_parsing.parser_algorithm import InputParser
-from src.output_formatting.output_algorithms import create_xlsx
+from src.output_formatting.output_algorithms import parametrized, create_xlsx
+
+
+class ErrorOfCreation(Exception):
+    """
+    Raise when algorithm can't create the schedule
+    """
+
+    def __init__(self):
+        super().__init__("Algorithm can't create the schedule")
 
 
 def get_schedule():
@@ -74,19 +83,6 @@ def get_schedule():
         for s in set(teachers[coursesOfYear[course]._teacher._name]._preferences):
             flag = True
 
-            # подсчет того, может ли ТА с большим количеством групп в один день (Например Злата у нее 4 пары)
-            count_of_classes = 1
-            if course in tutors:
-                count_of_classes += 1
-            n = 0
-            for i in info[ind][2]:
-                n = max(n, ta_capacity[i][course])
-            count_of_classes += n
-
-            if count_of_classes > 6 - (1 if s in sport_days else 0):
-                flag = False
-            if not flag:
-                continue
             for i in week_busy[s]:
                 #  проверка на то что не совпадают лекции у одного препода в один день
                 if coursesOfYear[i[0]]._teacher._name == coursesOfYear[course]._teacher._name:
@@ -105,25 +101,15 @@ def get_schedule():
                 week_busy[s] = week_busy[s][:-1]
 
     generalCourses = createBlock(0, infoG, coursesOfYearG, week_busy_tmp)
-
     sort_rooms = list(rooms)
     sort_rooms.sort(key=lambda x: rooms[x].room_capacity, reverse=True)
     week1 = createEmptyWeek(sport_days, rooms)
     week2 = createEmptyWeek(sport_days, rooms)
+
+    infoBlock1, coursesOfYearBlock1 = getCourses("Block 1")
+    infoBlock2, coursesOfYearBlock2 = getCourses("Block 2")
+
     for G in generalCourses:
-        week_busy_save = {
-            "Mon": [],
-            "Tue": [],
-            "Wed": [],
-            "Thu": [],
-            "Fri": [],
-            "Sat": [],
-            "Sun": []
-        }
-        printDict(G)
-        for i in week_busy_save:
-            for k in G[i]:
-                week_busy_save[i].append(k)
         week_busy_save2 = {
             "Mon": [],
             "Tue": [],
@@ -136,15 +122,25 @@ def get_schedule():
         for i in week_busy_save2:
             for k in G[i]:
                 week_busy_save2[i].append(k)
-        infoBlock1, coursesOfYearBlock1 = getCourses("Block 1")
-        B1 = createBlock(0, infoBlock1, dict(list(coursesOfYearBlock1.items()) + list(coursesOfYearG.items())),
-                         week_busy_save2)
-        infoBlock2, coursesOfYearBlock2 = getCourses("Block 2")
         B2 = createBlock(0, infoBlock2, dict(list(coursesOfYearBlock2.items()) + list(coursesOfYearG.items())),
-                         week_busy_save)
-        for b1 in B1:
-            for b2 in B2:
-
+                         week_busy_save2)
+        for b2 in B2:
+            print(2)
+            week_busy_save = {
+                "Mon": [],
+                "Tue": [],
+                "Wed": [],
+                "Thu": [],
+                "Fri": [],
+                "Sat": [],
+                "Sun": []
+            }
+            for i in week_busy_save:
+                for k in G[i]:
+                    week_busy_save[i].append(k)
+            B1 = createBlock(0, infoBlock1, dict(list(coursesOfYearBlock1.items()) + list(coursesOfYearG.items())),
+                             week_busy_save)
+            for b1 in B1:
                 q = []
                 for i in b1:
                     week_busy = b1
@@ -208,8 +204,7 @@ def get_schedule():
                                     flag = False
                             if flag:
                                 for l in week1[j][k]:
-                                    if week1[j][k][l] is None and rooms[l].room_capacity >= i[
-                                        2].get_people_number():
+                                    if week1[j][k][l] is None and rooms[l].room_capacity >= i[2].get_people_number():
                                         week1[j][k][l] = [i[0]._course_name + ' (lab)', i[1]._name,
                                                           [i[2].get_name()]]
                                         break
@@ -300,14 +295,15 @@ def get_schedule():
             continue
         break
     else:
-        print("Я не смог составить рассписание")
+        raise ErrorOfCreation()
 
     for i in sport_days:
         week2[i].insert(0, {'Sport Complex': ["Sport", "Electives", [x for x in groups if "B" in x]]})
     for i in sport_days:
         week1[i].insert(0, {'Sport Complex': ["Sport", "Electives", [x for x in groups if "B" in x]]})
-    return week1, week2, tuple(x for x in groups), set(map(lambda x: str(x.item()), rooms.keys()))
+    print(321)
+    return week1, week2, tuple(x for x in groups)
 
 
-week1, week2, groups, rooms = get_schedule()
-create_xlsx(week1, week2, groups, rooms)
+week1, week2, groups = get_schedule()
+create_xlsx(parametrized(week1), parametrized(week2), groups)
