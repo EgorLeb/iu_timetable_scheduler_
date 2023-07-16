@@ -7,7 +7,7 @@
     display: flex;
     height: 100%;
     overflow: hidden;
-    width: 100%;  
+    width: 100%;
     position: absolute;
     flex-direction:column;
 }
@@ -31,7 +31,7 @@
     position: absolute;
     left: -15%;
     top: min(900px, 60%);
-    
+
 }
 
 .ellipse2 {
@@ -146,7 +146,7 @@
 
 .textShift {
     position: absolute;
-  
+
     width: 938px;
     left: 470px;
     top: 480px;
@@ -189,10 +189,6 @@
     white-space: nowrap;
     position: relative;
     flex: 1;
-}
-
-.btnShift{
-    /*margin-left: 7%;*/
 }
 
 .btnShiftDown{
@@ -252,7 +248,7 @@
     border-radius: 12px;
     border-color: rgba(37,77,37,1);
     border: 2px solid rgba(37,77,37,1);
-    
+
     background-color: #fff;
     padding-top: 1%;
     width: 70vw;
@@ -269,11 +265,11 @@
     cursor: pointer;
     border-color: rgba(37,77,37,1);
     border-width: 0;
-    
+
     background-color: #fff;
     height: 45px;
     width: 45px;
-    
+
     box-shadow: 1px 3px 5px 1px rgba(0, 0, 0, 0.2);
     display:flex;
     justify-content:center;
@@ -314,6 +310,9 @@
     color: #468f46;
     font-size: 2vw;
     font-weight: 800;
+}
+.msg {
+    font-size: 1.3vw !important;
 }
 
 .buttons{
@@ -380,3 +379,4 @@
 .no-line {
     text-decoration: none;
 }
+
