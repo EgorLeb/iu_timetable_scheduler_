@@ -31,28 +31,16 @@ closeBtn.addEventListener('click', (event) => {
     uplDesign.classList.remove("hidden");
     huge.classList.add("hidden");
 });
-	
+
 dropZone.addEventListener('dragover', event => {
   event.stopPropagation();
   event.preventDefault();
   event.dataTransfer.dropEffect = 'copy';
-  console.log(2)
-  var file = event.dataTransfer.files[0]
-  selfile.innerHTML = file.name
 });
 
 dropZone.addEventListener('drop', event => {
     event.stopPropagation();
     event.preventDefault();
-    console.log(1)
-
-    var file = event.dataTransfer.files[0];
-    if (ext(file.name)==="xlsx") {
-        selfile.innerHTML = file.name
-    } else {
-        alert("Invalid file type")
-    }
-    
 });
 
 
