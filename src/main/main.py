@@ -151,6 +151,7 @@ def get_schedule():
                     a = week_busy[i]
                     a.sort(key=lambda x: len(x[1]), reverse=True)
                     for k in a:
+                        l = 0
                         if courses[k[0]]._study_format == "Offline":
                             week1[i][0][sort_rooms[ind_free_room]] = [k[0] + ' (lec)', courses[k[0]]._teacher._name,
                                                                       k[1]]
@@ -159,6 +160,7 @@ def get_schedule():
                                                                       k[1]]
                             ind_of_online += 1
                         if k[0] in tutors:
+                            l = 1
                             if tutors[k[0]]._study_format == "Offline":
                                 week1[i][1][sort_rooms[ind_free_room]] = [k[0] + ' (tut)', tutors[k[0]]._teacher._name,
                                                                           k[1]]
@@ -174,12 +176,12 @@ def get_schedule():
                                     m = 100000
                                     minimum_room = ''
                                     for t in sort_rooms:
-                                        if week1[i][2 + d][t] is None and \
+                                        if week1[i][1 + d + l][t] is None and \
                                                 m > rooms[t].room_capacity >= groups[k[1][ind_of_group]]._people_number:
                                             m = rooms[t].room_capacity
                                             minimum_room = t
                                     if minimum_room != '':
-                                        week1[i][2 + d][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
+                                        week1[i][1 + d + l][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
                                         if k[0] in coursesOfYearBlock1:
                                             q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                         ind_of_group += 1
@@ -226,6 +228,7 @@ def get_schedule():
                     a = week_busy[i]
                     a.sort(key=lambda x: len(x[1]), reverse=True)
                     for k in a:
+                        l = 0
                         if courses[k[0]]._study_format == "Offline":
                             week2[i][0][sort_rooms[ind_free_room]] = [k[0] + ' (lec)', courses[k[0]]._teacher._name,
                                                                       k[1]]
@@ -234,6 +237,7 @@ def get_schedule():
                                                                       k[1]]
                             ind_of_online += 1
                         if k[0] in tutors:
+                            l = 1
                             if tutors[k[0]]._study_format == "Offline":
                                 week2[i][1][sort_rooms[ind_free_room]] = [k[0] + ' (tut)', tutors[k[0]]._teacher._name,
                                                                           k[1]]
@@ -248,12 +252,12 @@ def get_schedule():
                                 m = 100000
                                 minimum_room = ''
                                 for t in sort_rooms:
-                                    if week2[i][2 + d][t] is None and m > rooms[t].room_capacity >= groups[
+                                    if week2[i][1 + d + l][t] is None and m > rooms[t].room_capacity >= groups[
                                         k[1][ind_of_group]]._people_number:
                                         m = rooms[t].room_capacity
                                         minimum_room = t
                                 if minimum_room != '':
-                                    week2[i][2 + d][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
+                                    week2[i][1 + d + l][minimum_room] = [k[0] + ' (lab)', j._name, [k[1][ind_of_group]]]
                                     if k[0] in coursesOfYearBlock2:
                                         q.append([courses[k[0]], j, groups[k[1][ind_of_group]], i])
                                     ind_of_group += 1
@@ -301,8 +305,8 @@ def get_schedule():
         week2[i].insert(0, {'Sport Complex': ["Sport", "Electives", [x for x in groups if "B" in x]]})
     for i in sport_days:
         week1[i].insert(0, {'Sport Complex': ["Sport", "Electives", [x for x in groups if "B" in x]]})
-    return week1, week2, tuple(x for x in groups), set(map(lambda x: str(x.item()), rooms.keys()))
+    return week1, week2, tuple(x for x in groups)
 
 
-week1, week2, groups, rooms = get_schedule()
-create_xlsx(week1, week2, groups, rooms)
+week1, week2, groups = get_schedule()
+create_xlsx(parametrized(week1), parametrized(week2), groups)
