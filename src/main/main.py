@@ -1,5 +1,5 @@
 from src.input_parsing.parser_algorithm import InputParser
-from src.output_formatting.output_algorithms import parametrized, create_xlsx
+from src.output_formatting.output_algorithms import create_xlsx
 
 
 def get_schedule():
@@ -120,6 +120,7 @@ def get_schedule():
             "Sat": [],
             "Sun": []
         }
+        printDict(G)
         for i in week_busy_save:
             for k in G[i]:
                 week_busy_save[i].append(k)
@@ -135,7 +136,6 @@ def get_schedule():
         for i in week_busy_save2:
             for k in G[i]:
                 week_busy_save2[i].append(k)
-
         infoBlock1, coursesOfYearBlock1 = getCourses("Block 1")
         B1 = createBlock(0, infoBlock1, dict(list(coursesOfYearBlock1.items()) + list(coursesOfYearG.items())),
                          week_busy_save2)
@@ -144,6 +144,7 @@ def get_schedule():
                          week_busy_save)
         for b1 in B1:
             for b2 in B2:
+
                 q = []
                 for i in b1:
                     week_busy = b1
@@ -305,8 +306,8 @@ def get_schedule():
         week2[i].insert(0, {'Sport Complex': ["Sport", "Electives", [x for x in groups if "B" in x]]})
     for i in sport_days:
         week1[i].insert(0, {'Sport Complex': ["Sport", "Electives", [x for x in groups if "B" in x]]})
-    return week1, week2, tuple(x for x in groups)
+    return week1, week2, tuple(x for x in groups), set(map(lambda x: str(x.item()), rooms.keys()))
 
 
-week1, week2, groups = get_schedule()
-create_xlsx(parametrized(week1), parametrized(week2), groups)
+week1, week2, groups, rooms = get_schedule()
+create_xlsx(week1, week2, groups, rooms)

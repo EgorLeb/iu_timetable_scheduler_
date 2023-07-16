@@ -1,6 +1,7 @@
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill, Border, Side, Alignment, Font
 from openpyxl.utils import get_column_letter
+import os
 
 WEEKDAYS = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
 PERIODS = ("9:00-10:30", "10:40-12:10", "12:40-14:10", "14:20-15:50", "16:00-17:30", "17:40-19:00")
@@ -55,6 +56,7 @@ def empty_rooms(week, rooms):
 
 # week format: (weekday, class_number, group_name) -> (room_number, class_name, instructor)
 def create_xlsx(block1_raw, block2_raw, groups, rooms):
+    print('Started creating .xlsx')
     wb = Workbook()
     available_rooms_sheet = wb.active
     available_rooms_sheet.title = "Available rooms"
@@ -199,8 +201,8 @@ def create_xlsx(block1_raw, block2_raw, groups, rooms):
         prettify(year_sheet_block2,
                  len(year_groups))
 
-    wb.save("schedule.xlsx")
-
+    wb.save(os.path.join("mysite/output_data", "schedule.xlsx"))
+    # wb.save("schedule.xlsx")
 
 def get_row_offset(weekday, class_number):
     weekday_number = WEEKDAYS.index(weekday)
